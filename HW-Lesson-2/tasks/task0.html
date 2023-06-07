@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<h1>Задача №0</h1>
+	<p>Дано значення a, b, c. Обчислити значення виразів.</p>
+	<img src="./task0.jpg" alt="task0">
+	<br>
+	<script>
+		//Вводимо необхідні дані
+		let a = parseInt(prompt('Введіть а', '0'));
+		let b = parseInt(prompt('Введіть b', '0'));
+		let c = parseInt(prompt('Введіть c', '0'));
+
+		//Знаходимо результат
+		let s1 = a + 12 + b;
+		let s2 = Math.sqrt(((a + b) / (2 * a)));
+		let s3 = Math.cbrt((a + b) * c);
+		let s4 = Math.sin(a * Math.PI / (-b * 180));
+		// у послідньому виразі Math.sin приймає аргументи у радіанах, тому я перетворив їх у градуси.
+
+		//Виводимо результат
+		document.write(`
+		s1 = ${s1}
+		<br>
+		s2 = ${s2}
+		<br>
+		s3 = ${s3.toFixed(2)}
+		<br>
+		s4 = ${s4.toFixed(4)}
+			<br>`);
+	</script>
+</body>
+
+</html>
