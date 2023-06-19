@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №2</title>
+	<style>
+		.inputPrice {
+			display: flex;
+			align-items: center;
+			margin: 0px 0px 10px 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №2</h1>
+	<p> Створити 10 елементів для введення цін продуктів</p>
+
+	<script>
+
+		for (let index = 1; index <= 10; index++) {
+			let label = document.createElement("label");
+
+			label.textContent = "Ціна продукту #" + index;
+			label.className = "inputPrice";
+
+			let input = document.createElement("input");
+
+			input.type = "number";
+			input.className = "inputPrice";
+			document.body.appendChild(input);
+			label.appendChild(input);
+			document.body.appendChild(label);
+
+		}
+	</script>
+</body>
+
+</html>

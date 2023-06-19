@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача № 0</title>
+	<style>
+		.hello-button {
+			border: 3px solid rgb(178, 6, 119);
+			display: block;
+			margin: 0px 10px 20px 0px;
+			width: 65px;
+			height: 25px;
+
+		}
+	</style>
+</head>
+
+<body>
+	<h1> Задача № 0</h1>
+	<p> Вивести на екран 8 кнопок з написом “Hello”.</p>
+	<script>
+		for (let numButton = 1; numButton <= 8; numButton++) {
+			const button = document.createElement("button");
+			button.innerHTML = "Hello";
+			button.className = "hello-button"
+			document.body.appendChild(button);
+
+		}
+	</script>
+
+</body>
+
+</html>

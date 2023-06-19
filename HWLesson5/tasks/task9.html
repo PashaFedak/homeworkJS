@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №6</title>
+	<style>
+		.container {
+			display: flex;
+
+		}
+
+		.container table {
+			margin-left: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1> Задача №6</h1>
+	<p>Вивести 3 таблиці (по 3 рядки і 3 стовпці у кожній) за зразком </p>
+	<script>
+		let number = 1;
+		document.write('<div class="container">')
+		for (let table = 1; table <= 3; table++) {
+			document.write('<table border="2px">')
+			for (let i = 1; i <= 3; i++) {
+				document.write('<tr>')
+				for (let j = 1; j <= 3; j++) {
+					document.write(`<td> ${number} </td>`)
+					number++;
+				}
+				document.write('</tr>')
+			}
+			document.write('</table>')
+		}
+		document.write('</div>')
+
+	</script>
+</body>
+
+</html>

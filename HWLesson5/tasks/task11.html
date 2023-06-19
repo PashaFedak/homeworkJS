@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №8</title>
+</head>
+
+<body>
+	<h1>Задача №8</h1>
+	<p>Користувач загадує число. За 3 спроби комп’ютер намагається вгадати число користувача (використати confirm).</p>
+	<script>
+		//Введення даних
+		let randomNumber;
+		let quantity;
+		let messege = 'Я не вгадав =(';
+		confirm('Загадайте чилсло від 1 до 10')
+		for (let attempts = 1; attempts <= 3; attempts++) {
+			randomNumber = Math.floor(Math.random() * 10) + 1;
+			quantity = confirm(`Ви загадали число ${randomNumber} ?`);
+			if (quantity) {
+				messege = `Ваше число ${randomNumber}!!`
+				break;
+			}
+		}
+		//Виводимо результат 
+		document.write(`${messege}`)
+	</script>
+</body>
+
+</html>

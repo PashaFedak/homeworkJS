@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №9</title>
+</head>
+
+<body>
+	<h1>Задача №9</h1>
+	<p>Користувач загадує число. Комп’ютер задає питання поки не вгадає число користувача (використати confirm).</p>
+</body>
+<script>
+	//Вводимо значення
+	let clientNumber = confirm('загадайте число 1 від 10')
+	let quantity;
+	let attemps = 0;
+	do {
+		const randomNumber = Math.floor(Math.random() * 10) + 1;
+		quantity = confirm(`Ваше загадане число ${randomNumber} ?`);
+		attemps++;
+	} while (quantity === false);
+
+	document.write(`Я вгадав ваше число з ${attemps} спроби.`)
+</script>
+
+</html>
