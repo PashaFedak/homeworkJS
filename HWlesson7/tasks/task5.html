@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №5</title>
+</head>
+
+<body>
+	<h1> Задача №5 </h1>
+	<div>
+		<p> Дано покази температур (довільна кількість). Розробити функцію, яка дозволить знайти середнє значення для
+			додатних показів температури.</p>
+	</div>
+	<script>
+		function findTemperature() {
+			let sum = 0;
+			let count = 0;
+			for (let i = 0; i < arguments.length; i++) {
+				if (arguments[i] > 0) {
+					sum += arguments[i];
+					count++;
+				}
+			}
+			if (count === 0) {
+				return 0;
+			}
+			let average = sum / count;
+			return average;
+		}
+		console.log(findTemperature(-5, 52, 23, -50)); // <--- для перевірки
+	</script>
+</body>
+
+</html>

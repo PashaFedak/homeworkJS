@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №4</title>
+</head>
+
+<body>
+
+	<h1> Задача №4 </h1>
+	<div>
+		<p> Створити функцію, яка випадковим чином виводить на екран одне із 4 зображень (шляхи до зображень передаються у
+			функцію)</p>
+	</div>
+	<script>
+
+		function rundomimg(imagePaths) {
+			let randomIndex = Math.floor(Math.random() * imagePaths.length);
+			let imagePath = imagePaths[randomIndex];
+			document.write(`<img src="${imagePath}" alt = "Random Image">`);
+		}
+		let images = ["/HWlesson7/img/image1.jpeg", "/HWlesson7/img/image2.jpeg", "/HWlesson7/img/image3.jpeg", "/HWlesson7/img/image4.jpeg"]
+		rundomimg(images)
+	</script>
+</body>
+
+</html>

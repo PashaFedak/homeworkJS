@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №5</title>
+</head>
+
+<body>
+	<h1> Задача №5</h1>
+	<p> З клавіатури вводяться поступово числа. Знайти два найбільші числа. Ввід здійснюється до тих пір, поки різниця
+		між такими числами є більшою за 5. </p>
+	<script>
+		//Задаємо змінні
+		let userNumber = 0;
+		let difference = 0;
+		let numberMax1 = 0;
+		let numberMax2 = 0;
+		//Розвязок задач
+		do {
+			let userNumber = parseInt(prompt('Введіть число '));
+			if (userNumber > numberMax1) {
+				numberMax2 = numberMax1;
+				numberMax1 = userNumber;
+				difference = numberMax1 - numberMax2;
+			} else if (userNumber > numberMax2) {
+				numberMax2 = userNumber;
+				difference = numberMax1 - numberMax2;
+			}
+		} while (difference > 5);
+		//Вивод інформації
+		document.write(`Ваші два максимальних числа = ${numberMax1} i ${numberMax2}`)
+	</script>
+</body>
+
+</html>

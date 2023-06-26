@@ -21,7 +21,7 @@ header{
 }
 .task__container{
 	border: 3px solid rgb(178,6,119);
-	margin: 40px 5px 20px 5px;
+	margin: 30px 5px 20px 5px;
 	padding: 5px 5px 5px 5px;
 	width: 50%;
 	text-transform: uppercase;

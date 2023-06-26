@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №2</title>
+</head>
+
+<body>
+	<h1> Задача №2 </h1>
+	<div>
+		<p>Створити функцію, яка для 3 заданих чисел знаходить одночасно декілька результатів: кількість парних,<br>
+			кількість додатних, кількість більших за 100.</p>
+
+	</div>
+	<script>
+		//Введення даних
+		let userNumber1 = parseInt(prompt('Введіть перше число'));
+		let userNumber2 = parseInt(prompt('Введіть друге число'));
+		let userNumber3 = parseInt(prompt('Введіть третє число'));
+		let evenNumbers = 0;
+		let positiveNumbers = 0;
+		let maxNumbers = 0;
+		let result;
+		function searching(num1, num2, num3) {
+			//Перевіряємо перше число 
+			if (num1 % 2 === 0) {
+				evenNumbers++;
+			}
+			if (num1 > 0) {
+				positiveNumbers++;
+			}
+			if (num1 >= 100) {
+				maxNumbers++;
+			}
+			//Перевіряємо друге число 
+
+			if (num2 % 2 === 0) {
+				evenNumbers++;
+			}
+			if (num2 > 0) {
+				positiveNumbers++;
+			}
+			if (num2 >= 100) {
+				maxNumbers++;
+			}
+			//Перевіряємо третє число 
+
+			if (num3 % 2 === 0) {
+				evenNumbers++;
+			}
+			if (num3 > 0) {
+				positiveNumbers++;
+			}
+			if (num3 >= 100) {
+				maxNumbers++;
+			}
+			return [evenNumbers, positiveNumbers, maxNumbers]
+
+		}
+		result = searching(userNumber1, userNumber2, userNumber3);
+		//Виведення даних
+		document.write(`Кількість парних = ${result[0]}<br>`);
+		document.write(`Кількість додатних = ${result[1]}<br>`);
+		document.write(`Кількість більших за 100 = ${result[2]}<br>`);
+
+
+	</script>
+</body>
+
+</html>

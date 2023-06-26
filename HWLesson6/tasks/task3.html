@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №3</title>
+</head>
+
+<body>
+	<h1> Задача №3 </h1>
+	<p>Вивести на екран усі двоцифрові числа, у яких перша цифра є більшою або рівною за другу.</p>
+	<script>
+		//Розвязок задачі
+		for (let number = 10; number <= 99; number++) {
+
+			if (String(number)[0] >= String(number)[1]) {
+				document.write(`${number}<br> `);
+			}
+
+		}
+	</script>
+</body>
+
+</html>

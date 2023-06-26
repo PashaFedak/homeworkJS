@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №2</title>
+</head>
+
+<body>
+	<h1>Задача №2</h1>
+	<p>Танчики. На полі з 10 клітинок розміщують танк. За один крок танк може переміщуватися на відстань від 0 до 1 у
+		будь-якому напрямку (в межах поля).<br>
+		При влучанні броня танка пошкоджується на 30 балів (всього 100). Гра продовжується поки або не закінчаться снаряди
+		(кількість вводиться з клавіатури) або не буде влучання. <br>
+		Спробуйте відоразити гру графічно.
+	</p>
+
+	<script>
+		// Вводимо значеня
+		let tankArmor = 100;
+		let tankRowPosition = Math.floor(Math.random() * 10) + 1;
+		let tankColumnPosition = Math.floor(Math.random() * 10) + 1;
+		let userRow, userColumn, checkShootResult;
+		let numberOfShels = parseInt(prompt('Введіть кількістьснарядів'));
+		// Таблиця 10х10 ------------------------------------
+		document.write('<table border="2px">')
+		for (let i = 1; i <= 10; i++) {
+			document.write('<tr>')
+			for (let j = 1; j <= 10; j++) {
+				document.write(`<td id="cell-${i}-${j}" style = "padding: 10px;"></td>`)
+			}
+			document.write('</tr>')
+		}
+		document.write('</table>')
+		// Розвязок задачі--------------------------------------
+		do {
+			userRow = parseInt(prompt('Введіть номер рядка куда ви хочете вистрілити'));
+			userColumn = parseInt(prompt('Введіть номер стовпця куда ви хочете вистрілити'));
+			if (userRow > 10 || userColumn > 10) {
+				alert('Ви ввели велике значення. Максимальне 10');
+				continue;
+			}
+			let cell = document.getElementById(`cell-${userRow}-${userColumn}`);
+			numberOfShels--;
+			checkShootResult = userRow === tankRowPosition && userColumn === tankColumnPosition;
+			tankRowPosition = tankRowPosition + Math.round(Math.random());
+			tankColumnPosition = tankColumnPosition + Math.round(Math.random());
+			if (tankRowPosition > 10 || tankColumnPosition > 10) {
+				tankRowPosition = Math.floor(Math.random() * 10) + 1;
+				tankColumnPosition = Math.floor(Math.random() * 10) + 1;
+			}
+			if (tankArmor === 0) {
+				break;
+			}
+			if (checkShootResult) {
+				tankArmor -= 30;
+				alert(`Є попадання! Але танк можливо перемістився. Броня танка ${tankArmor} `)
+				cell.style.backgroundColor = 'green';
+			} else {
+				alert(` Не попав. Попробуй ще.  `)
+				cell.style.backgroundColor = 'red';
+			}
+			if (numberOfShels === 0) {
+				break;
+			}
+			alert(`Розвідка: Такнк знаходиться на ${tankRowPosition} i ${tankColumnPosition}  `) // <--- Це просто, щоб полегшити життя))
+		} while (tankArmor > 0 && numberOfShels > 0);
+
+		if (tankArmor <= 0) {
+			alert('Вітаю ти виграв');
+		} else if (numberOfShels === 0) {
+			alert('Закінчились снаряди');
+		}
+
+	</script>
+</body>
+
+</html>

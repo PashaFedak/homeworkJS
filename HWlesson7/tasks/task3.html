@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №3</title>
+</head>
+
+<body>
+	<h1>Задача №3 </h1>
+	<div>
+		<p> Створити функцію, яка створює таблицю з вказаною кількістю рядків і стовпців (таблиця заповнюється <br>
+			заданим фіксованим повідомленням).</p>
+
+	</div>
+	<script>
+		let numberLines = parseInt(prompt('Введіть кількість рядків'));
+		let numberColumns = parseInt(prompt('Введіть кількість стовпців'));
+
+		function chart(lines, columns) {
+			document.write('<table border="2px">')
+			for (let i = 1; i <= numberLines; i++) {
+				document.write('<tr>')
+				for (let j = 1; j <= numberColumns; j++) {
+					document.write(`<td> ..... </td>`)
+				}
+				document.write('</tr>')
+			}
+			document.write('</table>')
+		}
+		chart()
+	</script>
+</body>
+
+</html>

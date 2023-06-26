@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №4</title>
+</head>
+
+<body>
+	<h1>Задача №4</h1>
+
+	<p>З клавіатури вводиться число. знаходити суму цифр до тих пір. Поки сума не стане більшую за 20.</p>
+	<script>
+		let userNumber = parseInt(prompt('Введіть число'));
+		let sum = 0;
+		let digits = String(userNumber).split('').map(Number);
+
+		for (let i = 0; i < digits.length; i++) {
+			sum += digits[i];
+		}
+		if (sum < 20) {
+			for (let j = 0; j < digits.length; j++) {
+				digits[j]++;
+				sum += digits[j];
+				if (sum > 20) {
+					break
+				}
+			}
+		}
+		document.write(`${sum}`)
+
+	</script>
+</body>
+
+</html>

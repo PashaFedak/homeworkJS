@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №1</title>
+</head>
+
+<body>
+	<h1>Задача №1</h1>
+	<div>
+		<p>Створити окремі функції, які для 4 чисел знаходять:</p>
+		<ul>
+			<li>суму;</li>
+			<li>добуток;</li>
+			<li>середнє арифметичне;</li>
+			<li>мінімальне значення.</li>
+		</ul>
+	</div>
+	<script>
+		//Введення даних
+		let userNumber1 = parseInt(prompt('Введіть перше число'));
+		let userNumber2 = parseInt(prompt('Введіть друге число'));
+		let userNumber3 = parseInt(prompt('Введіть третє число'));
+		let userNumber4 = parseInt(prompt('Введіть четверте число'));
+		let result = 0;
+		//Розвязок завдання.
+		function sum(num1, num2, num3, num4) {
+			result = num1 + num2 + num3 + num4;
+			return result;
+		}
+		//Виведення даних
+		result = sum(userNumber1, userNumber2, userNumber3, userNumber4);
+		document.write(`Сума = ${result}<br>`);
+
+		function product(num1, num2, num3, num4) {
+			result = num1 * num2 * num3 * num4;
+			return result;
+		}
+		//Виведення даних
+		result = product(userNumber1, userNumber2, userNumber3, userNumber4);
+		document.write(`Добуток = ${result}<br>`);
+
+		function medium(num1, num2, num3, num4) {
+			result = (num1 + num2 + num3 + num4) / 4;
+			return result;
+		}
+		//Виведення даних
+		result = medium(userNumber1, userNumber2, userNumber3, userNumber4);
+		document.write(`Середнє = ${result}<br>`);
+
+		function minNumber(num1, num2, num3, num4) {
+			result = Math.min(num1, num2, num3, num4);
+			return result;
+		}
+		//Виведення даних
+		result = minNumber(userNumber1, userNumber2, userNumber3, userNumber4);
+		document.write(`Мінімальне = ${result}<br>`);
+
+	</script>
+</body>
+
+</html>

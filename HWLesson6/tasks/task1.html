@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №1</title>
+</head>
+
+<body>
+	<h1>Задача №1 </h1>
+	<p>На складі зберігається певна кількість ящиків з яблуками (наприклад, 15). Коли під’їде машина для
+		завантаження, <br>
+		попросити користувача ввести, скільки ящиків завантажити у першу машину, у другу і т. д., поки на складі
+		не закінчаться ящики з яблуками.
+		<br>Передбачити той випадок, коли користувач вводить кількість, що перевищує поточну кількість ящиків на
+		складі.
+	</p>
+	<script>
+		// Вводемо дані
+		let truck = 1;
+		let totalNumber = 125;
+		let uploading;
+		// Розрахунок задачі
+		while (totalNumber >= 0) {
+			uploading = parseInt(prompt(`Підїхала ${truck} машина. Скільки хочете завантажити ящиків? `, ''))
+			if (uploading <= totalNumber) {
+				totalNumber -= uploading;
+				truck++
+			} else if (uploading > 125) {
+				document.write('У нас нема стільки яблок');
+				break;
+			} else if (totalNumber === 0) {
+				document.write('Все, яблука закінчились');
+				break;
+			}
+			quantity = confirm(` Завантажено ${uploading} ящиків, залишилось ${totalNumber}, Будете брати ще?`)
+			if (quantity && totalNumber !== 0) {
+				continue;
+			} else {
+				document.write('Дякую за покупку.');
+				break;
+			}
+		}
+
+	</script>
+</body>
+
+</html>
