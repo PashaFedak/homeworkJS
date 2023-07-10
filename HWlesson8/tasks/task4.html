@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №4</title>
+</head>
+
+<body>
+	<h3> Задача №4 </h3>
+	<div>
+		<p> Дано послідовність номерів автомобілів. Підрахувати кількість номерів, які :
+		</p>
+		<ul>
+			<li>починаються на букву «А»;</li>
+			<li>перша і остання літери співпадають;</li>
+			<li>складаються з більше ніш 5 символів;</li>
+		</ul>
+	</div>
+	<script>
+		let listCarNumbers = ['АО5556АК', 'АО5559АМ', 'АХ7277НА', 'АМ2186СР', 'КА4254НМ', 'ВС0935МВ', 'АТ6184НЕ', 'ВК26', 'ВК16', 'ВК6']
+
+		//===================================================================================================
+
+
+		//Функція яка виведе номера авто які починаються на А 
+		function findTheLetterA(listCarNumbers) {
+			let countLetterA = 0;
+			for (let i = 0; i < listCarNumbers.length; i++) {
+				if (listCarNumbers[i][0] === 'А') {
+					countLetterA++;
+				}
+			}
+			return countLetterA;
+		}
+		let resultLetterA = findTheLetterA(listCarNumbers);
+		document.write(`Кількість номерних знаків які починаються на А - ${resultLetterA} <br>`)
+
+		//===================================================================================================
+		//Функція яка виведе кількість номерів у яких перша і остання літери співпадають 
+		function findTheSameLetters(listCarNumbers) {
+			let countSameLetters = 0;
+			for (let i = 0; i < listCarNumbers.length; i++) {
+				if (listCarNumbers[i][0] === listCarNumbers[i][listCarNumbers[i].length - 1]) {
+					countSameLetters++;
+
+				}
+			}
+			return countSameLetters;
+		}
+		let resultSameLetters = findTheSameLetters(listCarNumbers);
+		document.write(`Кількість номерних знаків у яких перша і остання літера співпадають -- ${resultSameLetters} <br>`)
+
+		//===================================================================================================
+		//Функція яка виведе кількість номерів які мають більше ніж 5 символів
+		function moreCharacters(listCarNumbers) {
+			let countCharacters = 0;
+			for (let i = 0; i < listCarNumbers.length; i++) {
+				if (listCarNumbers[i].length > 5) {
+					countCharacters++;
+				}
+			}
+			return countCharacters;
+		}
+		let resultCharacters = moreCharacters(listCarNumbers);
+		document.write(`Кількість номерних знаків у яких символів більше ніж 5  ---${resultCharacters}`)
+	</script>
+</body>
+
+</html>

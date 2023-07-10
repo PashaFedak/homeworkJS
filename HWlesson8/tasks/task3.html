@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №3</title>
+</head>
+
+<body>
+	<h3> Задача №3</h3>
+	<div>
+		<p>Дано масив імен учнів. З’ясувати скільки разів зустрічається ім’я «Іван».
+		</p>
+	</div>
+	<script>
+		let studentsNames = ['Вася', 'Іван', 'Павло', 'Іван', 'Петро', 'Ярослав', 'Іван', 'Дмитро'];
+		function getFindName(studentsNames) {
+			let count = 0;
+			for (let i = 0; i < studentsNames.length; i++) {
+				if (studentsNames[i] === 'Іван') {
+					count++;
+				}
+			}
+			return count;
+		}
+		let result = getFindName(studentsNames);
+		document.write(`Імя Іван зустрічається ${result} разів.`);
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача № 1</title>
+</head>
+
+<body>
+	<h1>Задача №1</h1>
+	<p>Дано масив, який містить оцінки з К предметів. Знайти середній бал і з’ясувати до якої категорії він<br>
+		відноситься (відмінник, двійочник (має хоча би одну двійку), хорошист (оцінки добре і відмінно),<br>
+		трійочник(є хоча би одна трійка)).</p>
+	<script>
+		let numberOfItems = parseInt(prompt('Введіть кількість предметів.', ''));
+
+		function ratingList(numberOfItems) {
+			let assessments = new Array(numberOfItems);
+			let sum = 0;
+			let count = 0;
+			// Введення даних в масив
+			for (let i = 0; i < assessments.length; i++) {
+				let gradeInput = parseInt(prompt(`Запишіть оцінку ${i + 1} предмета.`));
+				assessments[i] = gradeInput;
+				sum += gradeInput;
+				count++;
+			}
+			let meanNumber = sum / count;        // <--- Середній бал.
+			let minNumber = Math.min(...assessments); // <--- Знаходження мінімальної оцінки
+			//Вибір категорії
+			for (let j = 0; j < assessments.length; j++) {
+				if (minNumber === 2 || minNumber === 1) {
+					document.write('Двійочник <br>');
+					break;
+				} else if (minNumber === 3) {
+					document.write('Трійочник <br>');
+					break;
+				} else if (minNumber === 4) {
+					document.write('Хорошист <br>');
+					break;
+				} else if (meanNumber === 5) {
+					document.write('Відмінник <br>');
+					break;
+				}
+			}
+			return assessments;
+		}
+
+		let result = ratingList(numberOfItems);
+		document.write(`${result}`)
+	</script>
+</body>
+
+</html>
