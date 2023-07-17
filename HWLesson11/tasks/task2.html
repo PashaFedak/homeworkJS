@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №2</title>
+</head>
+
+<body>
+	<h1>Задача №2. Дано інформацію про прибуток К магазинів протягом тижня. Знайти :</h1>
+	<script>
+		//Генеруємо масив магазину 
+		function getRandomNumber(minNumber, maxNumber) {
+			return minNumber + Math.floor(Math.random() * (maxNumber - minNumber + 1));
+		}
+		function getRandomArrey(arreyLength, minNumber, maxNumber) {
+			const Arr = [];
+			for (let index = 0; index < arreyLength; index++) {
+				let randomNumber = getRandomNumber(minNumber, maxNumber);
+				Arr.push(randomNumber);
+			}
+			return Arr;
+		}
+		function getRandomTable(rowsNumber, columnsNumber, minNumber, maxNumber) {
+			const RandomTable = [];
+			for (let index = 0; index < rowsNumber; index++) {
+				let randomRow = getRandomArrey(columnsNumber, minNumber, maxNumber);
+				RandomTable.push(randomRow);
+			}
+			return RandomTable;
+		}
+
+		let randomTableArrey = getRandomTable(5, 7, 100, 1000);//<-------- Задали пареметри масиву
+
+
+		// Приводимо масив у вигляд таблиці
+		document.write('<table border="2px">')
+		for (const subElement of randomTableArrey) {
+			document.write('<tr>')
+			for (const element of subElement) {
+				document.write(`<td> ${element} </td> `)
+			}
+		}
+		document.write('</table> ')
+		//===================================================================================
+		document.write('<h3>№1 Загальний прибуток кожного масиву за тиждень</h3>')
+		//создаємо функцію для знаходження прибутку кожного магазину
+		function getSumEachStore(randomTableArrey) {
+
+			let sumStore = [];
+			for (let indexWeek = 0; indexWeek < randomTableArrey.length; indexWeek++) {
+				let sum = 0;
+				for (let indexColumn = 0; indexColumn < randomTableArrey[indexWeek].length; indexColumn++) {
+					sum += randomTableArrey[indexWeek][indexColumn];
+
+				}
+				sumStore.push(sum)
+			}
+			return sumStore;
+		}
+		let sumEachStore = getSumEachStore(randomTableArrey);
+		document.write(`${sumEachStore}`)
+		//===================================================================================
+		document.write('<h3>№2 загальний прибуток усіх магазинів по дням (загальний прибуток усіх магазинів за понеділок, за вівторок, і т.д.);</h3>')
+
+		function getSumDaysStore(randomTableArrey) {
+			let sumDays = [];
+			for (let indexWeek = 0; indexWeek < randomTableArrey[0].length; indexWeek++) {
+				let sum = 0;
+				for (let indexColumn = 0; indexColumn < randomTableArrey.length; indexColumn++) {
+					sum += randomTableArrey[indexColumn][indexWeek];
+
+				}
+				sumDays.push(sum)
+
+			}
+			return sumDays;
+		}
+		let sumDaysStore = getSumDaysStore(randomTableArrey);
+		document.write(`${sumDaysStore}`)
+		//===================================================================================
+		document.write('<h3>№3 загальний прибуток за робочі дні </h3>')
+
+		function getSumWorkDays(randomTableArrey) {
+			let workDays = 5;
+			let sum = 0;
+			for (let indexWeek = 0; indexWeek < randomTableArrey.length; indexWeek++) {
+				for (let indexColumn = 0; indexColumn < workDays; indexColumn++) {
+					sum += randomTableArrey[indexWeek][indexColumn];
+
+				}
+			}
+			return sum;
+		}
+
+		let sumWorkDays = getSumWorkDays(randomTableArrey);
+		document.write(`${sumWorkDays}`)
+		//===================================================================================
+		document.write('<h3>№4 загальний прибуток за вихідні дні </h3>')
+
+		function getsumWeekendDays(randomTableArrey) {
+			let sum = 0;
+			for (let indexWeek = 0; indexWeek < randomTableArrey.length; indexWeek++) {
+				for (let indexColumn = 5; indexColumn <= 6; indexColumn++) {
+					sum += randomTableArrey[indexWeek][indexColumn];
+
+				}
+			}
+			return sum;
+		}
+		let sumWeekendDays = getsumWeekendDays(randomTableArrey);
+		document.write(`${sumWeekendDays}`)
+		//===================================================================================
+		document.write('<h3>№5 максимальний прибуток за середу </h3>')
+
+		function getmaxProfitWednesday(randomTableArrey) {
+			let profit = [];
+			let sum = 0;
+			for (let indexWeek = 0; indexWeek < randomTableArrey.length; indexWeek++) {
+				for (let indexColumn = 2; indexColumn == 2; indexColumn++) {
+					sum = randomTableArrey[indexWeek][indexColumn];
+				}
+				profit.push(sum);
+			}
+			return Math.max(...profit);
+		}
+		let maxProfitWednesday = getmaxProfitWednesday(randomTableArrey);
+		document.write(`${maxProfitWednesday}`)
+	</script>
+</body>
+
+</html>

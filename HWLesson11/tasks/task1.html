@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №1</title>
+</head>
+
+<body>
+	<h1>Задача №1. Знайти суми елементів у вказаній області.</h1>
+
+	<script>
+		//генеруємо таблицю з рандомними елементами 
+		function getRandomNumber(minNumber, maxNumber) {
+			return minNumber + Math.floor(Math.random() * (maxNumber - minNumber + 1));
+		}
+		function getRandomArrey(arreyLength, minNumber, maxNumber) {
+			const Arr = [];
+			for (let index = 0; index < arreyLength; index++) {
+				let randomNumber = getRandomNumber(minNumber, maxNumber);
+				Arr.push(randomNumber);
+			}
+			return Arr;
+		}
+		function getRandomTable(rowsNumber, columnsNumber, minNumber, maxNumber) {
+			const RandomTable = [];
+			for (let index = 0; index < rowsNumber; index++) {
+				let randomRow = getRandomArrey(columnsNumber, minNumber, maxNumber);
+				RandomTable.push(randomRow);
+			}
+			return RandomTable;
+		}
+
+		let randomTableArrey = getRandomTable(6, 6, 1, 100);//<-------- Задали пареметри масиву
+		// document.write(`${randomTableArrey}`)
+
+		// Приводимо масив у вигляд таблиці
+		document.write('<table border="2px">')
+		for (const subElement of randomTableArrey) {
+			document.write('<tr>')
+			for (const element of subElement) {
+				document.write(`<td> ${element} </td>`)
+			}
+		}
+		document.write('</table>')
+		//=====================================================================
+		// Создамо функцію для того щоб знаходити суму елементів 
+
+		function getSumElementsTable(rowInitialValue, rowfinalValue, columnInitialValue, columnFinalValue) {
+			let sum = 0;
+			for (let rowIndex = rowInitialValue; rowIndex <= rowfinalValue; rowIndex++) {
+				for (let columnIndex = columnInitialValue; columnIndex <= columnFinalValue; columnIndex++) {
+					sum += randomTableArrey[rowIndex][columnIndex]
+				}
+
+			}
+			return sum;
+		}
+		//=====================================================================
+
+		// Розвязок першого завдання 
+		document.write('Знаходимо суму елементів в указаній області<br>')
+		document.write(`<img src="./img1.jpg" alt=""> <br>`)
+
+		let sumElements1 = getSumElementsTable(0, 2, 0, 2);
+		document.write(`Сума елементів в указаній області - ${sumElements1} <br>`);
+		//========================================================================
+		document.write(`<img src="./img2.jpg" alt=""> <br>`)
+
+		let sumElements2 = getSumElementsTable(0, 2, 2, 5);
+		document.write(`Сума елементів в указаній області - ${sumElements2} <br>`);
+		//========================================================================
+		document.write(`<img src="./img3.jpg" alt=""> <br>`)
+
+		let sumElements3 = getSumElementsTable(2, 5, 0, 2);
+		document.write(`Сума елементів в указаній області - ${sumElements3} <br>`);
+		//========================================================================
+		document.write(`<img src="./img4.jpg" alt=""> <br>`)
+
+		let sumElements4 = getSumElementsTable(2, 5, 2, 5);
+		document.write(`Сума елементів в указаній області - ${sumElements4} <br>`);
+		//========================================================================
+		//Знайти суму парних рядків 
+		function getSumEvenRow() {
+			let sum = 0;
+			for (let rowIndex = 1; rowIndex < randomTableArrey.length; rowIndex += 2) {
+				for (let columnIndex = 0; columnIndex < randomTableArrey.length; columnIndex++) {
+					sum += randomTableArrey[rowIndex][columnIndex];
+				}
+
+			}
+			return sum;
+		}
+		let sumEvenRow = getSumEvenRow();
+		document.write(`<br> <br> <br>`)
+		document.write(`Сума парних рядків - ${sumEvenRow} <br>`)
+
+		//===========================================================================
+		//Знайти суму непарних стовпців
+		function getSumUnevenColumn() {
+			let sum = 0;
+			for (let rowIndex = 0; rowIndex < randomTableArrey.length; rowIndex++) {
+				for (let columnIndex = 0; columnIndex < randomTableArrey.length; columnIndex += 2) {
+					sum += randomTableArrey[rowIndex][columnIndex];
+				}
+
+			}
+			return sum;
+		}
+		let sumUnvenColumn = getSumUnevenColumn();
+		document.write(`<br> <br> <br>`)
+		document.write(`Сума Непарних Стовпців - ${sumUnvenColumn} <br>`)
+
+		//===========================================================================
+		// Знаходимо суму у парних рядках – непарні стовпці.
+		function getSumEvenRowUnevenColumn() {
+			let sum = 0;
+			for (let rowIndex = 1; rowIndex < randomTableArrey.length; rowIndex += 2) {
+				for (let columnIndex = 0; columnIndex < randomTableArrey.length; columnIndex += 2) {
+					sum += randomTableArrey[rowIndex][columnIndex];
+				}
+
+			}
+			return sum;
+		}
+		let sumEvenRowUnevenColumn = getSumEvenRowUnevenColumn();
+		document.write(`<br> <br> <br>`)
+		document.write(`Сума у парних рядках і непарних стовпцях - ${sumEvenRowUnevenColumn} <br>`)
+		//===========================================================================
+		// Знаходимо суму у непарних рядках – парні стовпці.
+		function getSumUnevenRowEvenColumn() {
+			let sum = 0;
+			for (let rowIndex = 0; rowIndex < randomTableArrey.length; rowIndex += 2) {
+				for (let columnIndex = 1; columnIndex < randomTableArrey.length; columnIndex += 2) {
+					sum += randomTableArrey[rowIndex][columnIndex];
+				}
+
+			}
+			return sum;
+		}
+
+		let sumUnevenRowEvenColumn = getSumUnevenRowEvenColumn();
+		document.write(`<br> <br> <br>`)
+		document.write(`Сума у парних рядках і непарних стовпцях - ${sumUnevenRowEvenColumn} <br>`)
+
+
+
+	</script>
+</body>
+
+</html>
