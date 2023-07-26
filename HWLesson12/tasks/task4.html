@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №4</title>
+</head>
+
+<body>
+	<h1>Задача №4.
+	</h1>
+	<h3>Для розглянутих методів сортування спробувати вивести етапи сортування шляхом виведення відповідних таблиць за
+		зразком.
+	</h3>
+	<script>
+
+		// Генерація випадкових цілих чисел  
+		let randomNumbersArray = new Array();
+		for (let index = 0; index < 5; index++) {
+			randomNumbersArray.push(Math.floor(Math.random() * 1000) + 1, index);
+		}
+		document.write(`<h3>Згенерований масив:</h3>  ${randomNumbersArray} <br><br>=======================================================<br>`);
+		document.write('Сортування методом бульбашки <br><br>')
+
+
+		// ==========================================================================================
+		//Перший метод сортування бульбашкою 
+
+		let count = 0;
+		function getBubbleSorting(array) {
+			let changed;
+			do {
+				changed = false;
+				for (let i = 1; i < array.length; i++) {
+					if (array[i - 1] > array[i]) {
+						let tmp = array[i - 1];
+						array[i - 1] = array[i];
+						array[i] = tmp;
+						changed = true;
+						count++;
+						document.write(`${array}<br><br>`)
+					}
+
+				}
+
+			} while (changed);
+			return array;
+		}
+		let result = getBubbleSorting(randomNumbersArray);
+		document.write(`Відсортований масив - ${result} <br> <br>`)
+		document.write(`Кількість проведених обмінів під час сортування бульбашкою -  ${count}<br>=========================================================<br>`)
+
+
+		// ==========================================================================================
+
+		// Генерація випадкових цілих чисел  
+		let randomNumbersArray2 = new Array();
+		for (let index = 0; index < 5; index++) {
+			randomNumbersArray2.push(Math.floor(Math.random() * 100) + 1, index);
+		}
+		document.write(`<h3>Згенерований масив:</h3>  ${randomNumbersArray2} <br><br>=======================================================<br>`);
+		//Другий метод сортування Змішуванням
+		document.write('Сортування методом Змішування <br><br>')
+		function swap(array, i, j) {
+			let tmp = array[i];
+			array[i] = array[j];
+			array[j] = tmp;
+		}
+
+		let count2 = 0;
+		function getSortCocktail(array2) {
+
+			let leftIndex = 0;
+			let rightIndex = array2.length - 1;
+			while (leftIndex < rightIndex) {
+
+				for (let i = leftIndex; i < rightIndex; i++) {
+					if (array2[i] > array2[i + 1]) {
+						swap(array2, i, i + 1);
+						count2++;
+						document.write(`${array2}<br><br>`)
+					}
+
+				}
+				rightIndex--;
+				for (let j = rightIndex; j > leftIndex; j--) {
+					if (array2[j] < array2[j - 1]) {
+						swap(array2, j, j - 1);
+						count2++;
+						document.write(`${array2}<br><br>`)
+					}
+
+				}
+				leftIndex++;
+
+			}
+			return array2;
+		}
+		let result2 = getSortCocktail(randomNumbersArray2);
+		document.write('Відсортований масив: <br>')
+		document.write(`${result2}<br> <br> <br>`);
+		document.write(`Кількість обмінів під час сортування змішуванням ${count2}`)
+
+		// ==========================================================================================
+
+		// Генерація випадкових цілих чисел  
+		let randomNumbersArray3 = new Array();
+		for (let index = 0; index < 5; index++) {
+			randomNumbersArray3.push(Math.floor(Math.random() * 100) + 1, index);
+		}
+		document.write(`<h3>Згенерований масив:</h3>  ${randomNumbersArray3} <br><br>=======================================================<br>`);
+		//Другий метод сортування Змішуванням
+		document.write('Сортування методом Включенням <br><br>')
+
+		let count3 = 0;
+		function getInsertSort(array3) {
+			for (let k = 1; k < array3.length; k++) {
+				const insertNumber = array3[k];
+				let i = k - 1;
+				while (i >= 0 && array3[i] > insertNumber) {
+					array3[i + 1] = array3[i];
+					i = i - 1;
+
+				}
+				array3[i + 1] = insertNumber;
+				document.write(`${array3}<br><br>`)
+				count3++;
+			}
+			return array3;
+		}
+
+		let result3 = getInsertSort(randomNumbersArray3);
+		document.write(`Відсортований масив - ${result3}<br><br>`);
+		document.write(`Кількість обмінів під час сортування - ${count3}`)
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №1</title>
+</head>
+
+<body>
+	<h1>Задача №1.
+	</h1>
+	<h3>Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під час сортування бульбашкою.</h3>
+
+	<script>
+
+		// Генерація випадкових цілих чисел  
+		let randomNumbersArray = new Array();
+		for (let index = 0; index < 30; index++) {
+			randomNumbersArray.push(Math.floor(Math.random() * 1000) + 1, index);
+		}
+		document.write(`<h3>Згенерований масив:</h3>  ${randomNumbersArray} <br><br><br>`)
+
+
+		// НА минулому ДЗ ви мені сказали, що так ( те що внизу ) не правильно було заповнювати масив. Тому у вверху я вже  використав push. 
+		//let randomNumbersArray = new Array(30);
+		// for (let index = 0; index < randomNumbersArray.length; index++) {
+		// 	randomNumbersArray.fill(Math.floor(Math.random() * 1000) + 1, index);
+		// }
+		// Підкажете будь ласка, як тоді мождна би було заповнити масив рандомними числами якщо довжину масиву вводив би користувач?
+		// А не так як в мене довжина стала.  
+
+
+
+
+		// ==========================================================================================
+		// Сортування бульбашкою 
+		let count = 0;
+		function getBubbleSorting(randomNumbersArray) {
+			let changed;
+			do {
+				changed = false;
+				for (let i = 1; i < randomNumbersArray.length; i++) {
+					if (randomNumbersArray[i - 1] > randomNumbersArray[i]) {
+						let tmp = randomNumbersArray[i - 1];
+						randomNumbersArray[i - 1] = randomNumbersArray[i];
+						randomNumbersArray[i] = tmp;
+						changed = true;
+						count++;
+					}
+				}
+
+			} while (changed);
+			return randomNumbersArray;
+		}
+		let result = getBubbleSorting(randomNumbersArray);
+		document.write(`${result} <br> <br>`)
+		document.write(`Кількість проведених обмінів під час сортування бульбашкою -  ${count}`)
+
+
+
+	</script>
+</body>
+
+</html>
