@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №5</title>
+</head>
+
+<body>
+	<h1>Задача №5.
+	</h1>
+	<p> Тренажер додавання. Кожні 10 секунд користувачу задають випадковий приклад з додавання двох цифр і робиться
+		перевірка </p>
+
+
+	<script>
+		function getMathExpression(min, max) {
+			let firstNumber = Math.floor(Math.random() * max) + min;
+			let secondNumber = Math.floor(Math.random() * max) + min;
+			let userNumber = parseInt(prompt(`${firstNumber} + ${secondNumber}`))
+			let sum = firstNumber + secondNumber;
+			userNumber == sum ? alert('Молодець') : alert('Будь уважніший')
+			return userNumber
+		}
+
+		function getStartExpression() {
+			let start = setTimeout(() => {
+				getMathExpression(1, 10)
+				getStartExpression()
+			}, 10000)
+		}
+
+		getStartExpression()
+	</script>
+
+</body>
+
+</html>

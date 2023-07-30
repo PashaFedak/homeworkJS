@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №1</title>
+</head>
+
+<body>
+	<h1>Задача №1.
+	</h1>
+	<div>
+
+		<img src="./homework2.jpg" alt="">
+
+	</div>
+
+
+
+	<script>
+		// Рекурсивний алгоритм
+		let x = 1
+		function getEquation(x, n) {
+			if (n === 0) { return x }
+			if (n === 1) {
+				return x = x + 2 * n;
+			} else {
+				return getEquation(x, (n - 1)) + 2 * n;
+			}
+		}
+		let n = parseInt(prompt('Введіть число i '))
+
+		let result = getEquation(x, n)
+
+		document.write(`Результат рекурсивного  методу ${result}<br><br><br>`)
+		//==========================================
+		// Не рекурсивний алгоритм 
+
+
+		for (let i = 0; i <= n; i++) {
+			if (i === 0) { x = 1 }
+			else {
+				x = x + 2 * i
+			}
+
+		}
+		let result2 = x;
+		document.write(`Результат не рекурсивного методу ${result2}`)
+	</script>
+
+</body>
+
+</html>

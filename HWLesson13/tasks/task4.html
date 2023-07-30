@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №4</title>
+</head>
+
+<body>
+	<h1>Задача №4.
+	</h1>
+	<p>З використанням замикань розробити ітератор, тобто функцію, що буде поступово за окремими викликами видавати по
+		одну букву наперед заданого слова. З використанням нього розробити гру «Прекладач». Виводимо для користувача опис
+		цього слова і по одну букву користувач вводить переклад цього слова. Підрахувати кількість вгаданих букв. </p>
+
+
+	<script>
+		let arrGuessedWord = [
+			["bridge", "Через воду він проводить,А сам з місця вік не сходить."],
+			["umbrella", "Знизу клин.Зверху млин.Тече вода.А їй не біда."],
+			["apple", "Мов маленький м’ячик,Висить, а не скаче,Рум’яне, гладеньке,На смак солоденьке."],]
+
+
+		function rundomNumber(array) {
+			let randNumWord = Math.floor(Math.random() * array.length)
+			return randNumWord;
+		}
+
+		let number = rundomNumber(arrGuessedWord);
+
+		function gettranslationWords(word = arrGuessedWord[number][0]) {
+			let guessed = 0;
+			let notguessed = 0;
+
+			function numberLetters() {
+				for (let i = 0; i < word.length; i++) {
+					let question = prompt(`${arrGuessedWord[number][1]} `);
+					if (question === word[i]) {
+						guessed++;
+					} else {
+						notguessed++;
+					}
+				}
+				if (guessed === word.length) {
+					document.write(`Вітаю ви вгадали слово ${word}<br>`)
+				} else if (guessed >= Math.floor(word.length / 2)) {
+					document.write(`Ну ви були близько до того, щоб відгадати слово <br>`)
+				} else {
+					document.write(`Нажаль ви не вгадали слово ${word} <br>`)
+				}
+				return document.write(`кількість вгаданих букв  - ${guessed}`)
+			}
+			return numberLetters();
+		}
+		gettranslationWords(word = arrGuessedWord[number][0])
+	</script>
+
+</body>
+
+</html>

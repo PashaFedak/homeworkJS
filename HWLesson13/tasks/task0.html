@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №0</title>
+</head>
+
+<body>
+	<h1>Задача №0.
+	</h1>
+	<h3>Задача 0. Реалізувати рекурсивну функцію знаходження степеня числа а</h3>
+	<img src="./homework1.jpg" alt="">
+	<br>
+	<br>
+	<br>
+
+	<script>
+		let number = parseFloat(prompt('Введіть число яке хочете піднести до степеня'));
+		let step = parseInt(prompt('Введіть степінь'));
+
+
+		function pow(a, n) {
+			if (n === 1) {
+				return a;
+			} else {
+				return pow(a, n - 1) * a;
+			}
+		}
+
+		let result = pow(number, step);
+
+		document.write(result);
+
+	</script>
+
+</body>
+
+</html>
