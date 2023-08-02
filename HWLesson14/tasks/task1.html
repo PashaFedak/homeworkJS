@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №1</title>
+</head>
+
+<body>
+	<h1>Задача №1</h1>
+	<h3>Описати масив об’єктів – сайтів розроблених компанією з такими властивостями
+	</h3>
+	<p>Знайти:</p>
+	<ul>
+		<li>загальну вартість усіх сайтів</li>
+		<li> кількість сайтів, що було зроблено між 2000 та 2009 рр.</li>
+		<li> кількість сайтів, де сума спонсорських вкладень була більшою за 100000</li>
+		<li> створити загальний список усіх спонсорів (поки можуть повторюватись, просто зібрати усі у масив)
+		</li>
+		<li> знайти рік, коли прибуток був найбільшим</li>
+		<li> упорядкувати список за спаданням прибутку</li>
+		<li> Створити 2 окремих списки з копіями об’єктів, що містять сайти з вартість до 10000 і більше 10000
+		</li>
+
+	</ul>
+
+	<script>
+
+
+		// Описуємо масив обєктів
+		let companyName1 = 'Google'
+		let companyName2 = 'Amazon'
+		let companyName3 = 'Tesla'
+		let companyName4 = 'Ford'
+
+		let siteList = [
+			{
+				companyName1,
+				companyOwner: 'Johnson',
+				sponsors: [
+					{
+						lastName: 'Petrenko',
+						firstName: 'Ivan',
+						investments: 12000,
+					},
+					{
+						lastName: 'Johnson',
+						firstName: 'Peter',
+						investments: 52000,
+					},
+					{
+						lastName: 'Marushka',
+						firstName: 'Dima',
+						investments: 22000,
+					},
+					{
+						lastName: 'Miroshnichenko',
+						firstName: 'Eduard',
+						investments: 34000,
+					}
+				],
+				yearRelease: 2006,
+				websiteCost: 150000,
+
+			},
+			{
+				companyName2,
+				companyOwner: 'John Smith',
+				sponsors: [
+					{
+						lastName: 'Shevchenko',
+						firstName: 'Ivan',
+						investments: 1000,
+					},
+					{
+						lastName: 'Kovalenko',
+						firstName: 'Petro',
+						investments: 2000,
+					},
+					{
+						lastName: 'Marushka',
+						firstName: 'Oleg',
+						investments: 22000,
+					},
+					{
+						lastName: 'Shevchenko',
+						firstName: 'Sacha',
+						investments: 3000,
+					}
+				],
+				yearRelease: 2008,
+				websiteCost: 3000,
+
+			},
+			{
+				companyName3,
+				companyOwner: 'Homer Simpson',
+				sponsors: [
+					{
+						lastName: 'Ivanov',
+						firstName: 'Ivan',
+						investments: 15000,
+					},
+					{
+						lastName: 'Smith',
+						firstName: 'Peter',
+						investments: 8000,
+					},
+					{
+						lastName: 'Bilak',
+						firstName: 'Anna',
+						investments: 8000,
+					},
+
+				],
+				yearRelease: 2011,
+				websiteCost: 145000,
+
+			},
+			{
+				companyName4,
+				companyOwner: 'Shevchenko Taras',
+				sponsors: [
+					{
+						lastName: 'Johnson',
+						firstName: 'Jane',
+						investments: 22000,
+					},
+					{
+						lastName: 'Simpson',
+						firstName: 'Bart',
+						investments: 32000,
+					},
+					{
+						lastName: 'Messi',
+						firstName: 'Lionel',
+						investments: 82000,
+					},
+
+				],
+				yearRelease: 2018,
+				websiteCost: 200000,
+
+			},
+
+		]
+		// Виконуємо завдання 
+		document.write('<h3>Знайти загальну вартість усіх сайтів.</h3><br>');
+
+		let totalSum = siteList.reduce((pervSum, cost) => pervSum + cost.websiteCost,
+			0
+		)
+		document.write(`Загальна сума  - ${totalSum}`);
+		//=================================================================
+		document.write('<h3>Кількість сайтів, що було зроблено між 2000 та 2009 рр.</h3><br>');
+		let countYearRelease = 0
+		for (const count of siteList) {
+			if (count.yearRelease > 2000 && count.yearRelease < 2009) countYearRelease++;
+		}
+
+		document.write(`${countYearRelease}`);
+		//=================================================================
+		document.write('<h3>Кількість сайтів, де сума спонсорських вкладень була більшою за 100000</h3> <br>');
+
+		let totalSumInvest = siteList.reduce((countSite, site) => {
+			let sum = site.sponsors.reduce((suminv, inv) => suminv + inv.investments, 0)
+			if (sum > 100000) {
+				return countSite + 1;
+			}
+			return countSite;
+		}, 0)
+
+		document.write(`Відповідь - ${totalSumInvest}<br>`)
+		//==================================================================
+		document.write('<h3>Cтворити загальний список усіх спонсорів (поки можуть повторюватись, просто зібрати усі у масив)</h3>');
+		let listInvestor = siteList.map((invCount) => invCount.sponsors.map((invName) => ` ${invName.firstName} ${invName.lastName}`))
+		document.write(`${listInvestor}`)
+		//==================================================================
+		document.write('<h3>Знайти рік, коли прибуток був найбільшим</h3>')
+		let maxCost = -Infinity;
+		let maxProfitYear = 0;
+		for (const site of siteList) {
+			if (site.websiteCost > maxCost) {
+				maxCost = site.websiteCost;
+				maxProfitYear = site.yearRelease
+			}
+		}
+		document.write(`${maxProfitYear}`)
+		console.log(maxProfitYear);
+
+		//==================================================================
+
+		// Упорядкувати список за спаданням прибутку
+		let sortSiteList = siteList.sort((site1, site2) => site2.websiteCost - site1.websiteCost)
+
+
+		console.log(sortSiteList);
+		//==================================================================
+		//Створити 2 окремих списки з копіями об’єктів, що містять сайти з вартість до 10000 і більше 10000
+		let listSiteLess10000 = [];
+		let listSiteMore10000 = [];
+		for (const site of siteList) {
+			if (site.websiteCost < 10000) { listSiteLess10000.push(JSON.parse(JSON.stringify(site))) }
+			else if (site.websiteCost > 10000) { listSiteMore10000.push(JSON.parse(JSON.stringify(site))) }
+		}
+
+		console.log(listSiteLess10000);
+		console.log(listSiteMore10000);
+
+
+
+	</script>
+</body>
+
+</html>
