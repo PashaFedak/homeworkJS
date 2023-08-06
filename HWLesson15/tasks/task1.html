@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №1</title>
+</head>
+
+<body>
+	<h1>Задача №1 </h1>
+	<h4>Створити об’єкт «Тир». У масиві зберігаються 1, якщо у цьому квадраті є заєць і 0 в іншому випадку.</h4>
+
+	<script>
+
+		let userWidthArea = 10;
+		let ammo = 5;
+		let rabbits = 3;
+		function GameRange(userWidthArea, ammo, rabbits) {
+			this.rabbits = rabbits; // кількість зайців
+			this.ammo = ammo; // кількість набоїв
+			this.userWidthArea = userWidthArea;  //Задано поле 
+			this.gameArea = this.ganerateArea(); //Масив у якому зберігається поле з зайцями 
+
+		}
+
+		// Метод Генерування поля 
+		GameRange.prototype.ganerateArea = function () {
+			let gameArea = new Array(this.userWidthArea).fill(0);
+			let randomPosition = 0;
+			for (let i = 0; i < this.rabbits;) {
+				randomPosition = Math.floor(Math.random() * this.userWidthArea)
+				if (gameArea[randomPosition] === 0) {
+					gameArea[randomPosition] = 1
+					i++;
+				}
+			}
+			return gameArea;
+		}
+		// Метод вистрілу
+		GameRange.prototype.getuserShot = function (userShot) {
+			if (userShot >= this.userWidthArea) {
+				throw new Error('Ви попали за межі тиру. Попробуйте ще раз ')
+			}
+
+			if (this.gameArea[userShot] === 1) {
+				this.gameArea[userShot] = 2
+				this.rabbits--;
+				this.ammo--;
+				alert(`Точно в ціль! У вас залишилось ${this.ammo} набоїв і ще залишилось ${this.rabbits} зайців`)
+			} else if (this.gameArea[userShot] === 0) {
+				this.gameArea[userShot] = 3
+				this.ammo--;
+				alert(`Ви промазали ! У вас залишилось ${this.ammo} набоїв і ще залишилось ${this.rabbits} зайців`)
+			}
+
+		}
+		// Виведення поля на екран 
+		GameRange.prototype.getOutputArea = function () {
+			document.write('<table border="2px"><tr>');
+			for (let j = 0; j < this.gameArea.length; j++) {
+				if (this.gameArea[j] === 2) {
+					document.write('<td style="margin: 30px; background-color: green;">🐇</td>');
+				} else if (this.gameArea[j] === 3) {
+					document.write('<td style="margin: 30px; ">❌</td>');
+				} else {
+					document.write('<td style="width: 20px; "></td>');
+				}
+			}
+			document.write('</tr></table>');
+		}
+
+
+		GameRange.prototype.playGame = function () {    // запуск гри
+			this.ganerateArea()
+			let result = true;
+			do {
+				let userShot = parseInt(prompt('Введіть номер клітинки в яку хочете вистрілити '))
+				this.getuserShot(userShot - 1)
+				if (this.rabbits === 0 || this.ammo === 0) {
+					result = false;
+				}
+			} while (result);
+			if (this.rabbits === 0) {
+				alert(`Вітаю Ви виграли!  У вас залишилось ${this.ammo} набоїв `)
+			} else if (this.ammo === 0) {
+				alert(`Нажаль ви витратили всі набої. `)
+			}
+			this.getOutputArea()
+		}
+
+
+		let startGame = new GameRange(userWidthArea, ammo, rabbits);
+		startGame.playGame()
+
+	</script>
+</body>
+
+</html>

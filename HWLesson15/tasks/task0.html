@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №0</title>
+</head>
+
+<body>
+	<h1>Задача №1</h1>
+	<h4>Дано два об’єкта. Обидва містять масив цілих чисел. При цьому у одному з них є функція знаходження суми,
+		а у іншому – функція для знаходження добутку тих, які знаходяться між заданими мінімальним і максимальних
+		значенням.
+		Використати обидва методи стосовно обидвох об’єктів (використати call, apply)</h4>
+
+
+	<script>
+		let obj1 = {
+			number: [15, 13, 45, 28, 34, 78],
+			min: 20,
+			max: 60,
+			getSumNumber: function () {
+				let sum = 0;
+				for (let i = 0; i < this.number.length; i++) {
+					sum += this.number[i];
+				}
+				return sum;
+			},
+		}
+
+		let obj2 = {
+			number: [15, 13, 44, 23, 35, 58],
+			min: 20,
+			max: 60,
+			getProductNumber: function (minValue, maxValue) {
+				let product = 1;
+				minValue ??= this.min;
+				maxValue ??= this.max;
+				for (let i = 0; i < this.number.length; i++) {
+					if (this.number[i] > minValue && this.number[i] < maxValue) {
+						product *= this.number[i];
+					} else { product * 1 }
+				}
+				return product
+			}
+		}
+
+		let result1 = obj1.getSumNumber();
+		document.write(`Знаходження суми для першого обєкту<br><br> ${result1}<br> <br> `);
+
+
+		let result2 = obj1.getSumNumber.call(obj2);
+
+		document.write(`Знаходження суми для другого  обєкту<br><br> ${result2} <br><br> `);
+
+		let result3 = obj2.getProductNumber.apply(obj1);
+
+		document.write(`Знаходження добутку для першого обєкту<br><br> ${result3} <br><br>`);
+
+		let result4 = obj2.getProductNumber();
+		document.write(`Знаходження добутку для другого  обєкту<br> <br>${result4} <br>`);
+
+
+
+
+	</script>
+</body>
+
+</html>

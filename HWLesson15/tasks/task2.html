@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №2</title>
+</head>
+
+<body>
+	<h1>Задача №2</h1>
+	<h4>Створити об’єкт «Авто». </h4>
+
+	<script>
+		let brand = 'Audi';
+		let fuelTankSize = 50;
+		let numberOfAvailableLiters = 25;
+		let numberOfSeats = 4;
+		let numberOfPassengers = 2
+
+		function Auto(brand, fuelTankSize, numberOfAvailableLiters, numberOfSeats, numberOfPassengers) {
+			this.brand = brand;
+			this.fuelTankSize = fuelTankSize;
+			this.numberOfAvailableLiters = numberOfAvailableLiters;
+			this.numberOfSeats = numberOfSeats;
+			this.numberOfPassengers = numberOfPassengers;
+			this.numberGetOutPass = 0;
+		}
+		//Метод. Заправка на вказанку кількість літрів.
+		Auto.prototype.getRefuelThCar = function () {
+			let result;
+			do {
+				let refuel = parseInt(prompt(' Вкажіть на скільки літрів заправити ваше авто '));
+				this.numberOfAvailableLiters += refuel
+				if (this.fuelTankSize > this.numberOfAvailableLiters) {
+					result = confirm(`Дякую, що скористались нашою АЗС  у вас ${this.numberOfAvailableLiters} літрів топлива.Бажаєте ще заправитись?`)
+				} else if (this.fuelTankSize === this.numberOfAvailableLiters) {
+					return alert(`Ваш бак повний. Дякую, що скористалися нашою АЗС!`)
+				} else if (this.fuelTankSize < this.numberOfAvailableLiters) {
+					result = confirm(`Ви забагато запросили літрів топлива. На даний момент у вас ${this.numberOfAvailableLiters} літрів. А ваш бак обємом ${this.fuelTankSize} літрів. Попробуєте ще?`)
+					this.numberOfAvailableLiters -= refuel
+				}
+
+			} while (result);
+
+		}
+		// ==========================================================
+		// Метод виведення кількості пасажирів 
+		Auto.prototype.getDisplayingTheNnumberOfPassengers = function () {
+			alert(`У вас пасажирів - ${this.numberOfPassengers}`)
+		}
+		//===========================================================
+		// Метод додавання пасажирів 
+		Auto.prototype.getPlusPassengers = function (OfSeats, OfPassengers) {
+			OfPassengers ??= this.numberOfPassengers;
+			OfSeats ??= this.numberOfSeats;
+			let resultPassengers;
+			do {
+				let plusPass = parseInt(prompt(`Скількох пасажирів бажаєте підібрати? У вас ${OfSeats - OfPassengers} вільних місць.`))
+				OfPassengers += plusPass;
+				if (OfSeats > OfPassengers) {
+					resultPassengers = confirm(`Добре що ви підібрали пасажирів. у вас ще є вільне місце  Підберете ще? `)
+				} else if (OfSeats === OfPassengers) {
+					this.numberGetOutPass = OfPassengers
+					return alert(' У вас вже нема свободних місць')
+				} else if (OfSeats < OfPassengers) {
+					resultPassengers = confirm(`Забагато пасажирів.  Можливо візьмете менше ?  `)
+					OfPassengers -= plusPass;
+				}
+				this.numberGetOutPass = OfPassengers;
+			} while (resultPassengers);
+
+		}
+		//=========================================================
+		// Метод Висадки пасажирів
+		Auto.prototype.getOutPassengers = function (OfSeats, getOutPass) {
+			OfSeats ??= this.numberOfSeats;
+			getOutPass ??= this.numberGetOutPass;
+			let resultGetOut;
+			do {
+				let outPassengers = parseInt(prompt(`У вас пасажирів - ${getOutPass}. Скількох пасажирів хочете висадити?`))
+				if (outPassengers > getOutPass) {
+					resultGetOut = confirm(`ОЙ. У вас нема стільки пасажирів. Попробуйте ще раз.`)
+				}
+				getOutPass -= outPassengers;
+				if (getOutPass > 0) {
+					resultGetOut = confirm(`Ще лишилось пасажирів - ${getOutPass}. Будете ще висажувати?`)
+				} else if (getOutPass === 0) {
+					return alert('Все. Пасажирів бульше нема')
+				}
+			} while (resultGetOut);
+
+		}
+
+
+		// Запуск
+		Auto.prototype.getStart = function () {
+			this.getRefuelThCar();
+			this.getDisplayingTheNnumberOfPassengers();
+			this.getPlusPassengers();
+			this.getOutPassengers();
+		}
+
+		let startObj = new Auto(brand, fuelTankSize, numberOfAvailableLiters, numberOfSeats, numberOfPassengers);
+		startObj.getStart();
+	</script>
+</body>
+
+</html>

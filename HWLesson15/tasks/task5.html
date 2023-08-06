@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №5</title>
+</head>
+
+<body>
+	<h1>Задача №5</h1>
+	<h4>Розробити клас «Керівник танців»</h4>
+
+	<script>
+		let nameBoys = ['Ivan', 'Pasha', 'Petro', 'Oleg'];
+		let nameGirls = ['Ivanna', 'Natalia', 'Olena', 'Sashka'];
+		let randomBoysIndex = 0;
+		let randomGirlsIndex = 0;
+
+		class DanceDirector {
+
+			constructor(nameBoys, nameGirls) {
+				this.arreyBoys = nameBoys;
+				this.arreyGirls = nameGirls;
+			}
+			//Метод випадкового вибору імені хлопця
+			getRandomBoysName() {
+				return randomBoysIndex = Math.floor(Math.random() * this.arreyBoys.length)
+			}
+
+			//Метод випадкового вибору імені дівчини
+			getRandomGirlsName() {
+				return randomGirlsIndex = Math.floor(Math.random() * this.arreyGirls.length)
+			}
+
+			//Метод виведення пари для танців
+			getRandomPair() {
+				alert(`Пара для танців - ${this.arreyBoys[randomBoysIndex]} i ${this.arreyGirls[randomGirlsIndex]}`)
+			}
+			//Метод run , який ініціює через кожні 5 секунд виведення нової пари для танців
+			run() {
+				let start = setTimeout(() => {
+					this.getRandomBoysName();
+					this.getRandomGirlsName();
+					this.getRandomPair();
+					this.run();
+				}, 5000)
+			}
+		}
+
+		let startDance = new DanceDirector(nameBoys, nameGirls);
+		startDance.run();
+
+
+	</script>
+</body>
+
+</html>

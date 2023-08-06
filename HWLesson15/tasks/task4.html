@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №4</title>
+</head>
+
+<body>
+	<h1>Задача №4</h1>
+	<h4>
+		Розробити клас Baner
+	</h4>
+
+	<script>
+
+		let arrBaner = [
+			{
+				pics: './Facebook.png',
+				link: 'https://uk-ua.facebook.com/'
+			},
+			{
+				pics: './amazon.png',
+				link: 'https://www.amazon.com/'
+			},
+			{
+				pics: './google.png',
+				link: 'https://www.google.com.ua/'
+			},
+			{
+				pics: './youtube.jpg',
+				link: 'https://www.youtube.com/'
+			},
+		]
+		let randomIndex = 0;
+
+		class Baner {
+
+
+			constructor(arrBaner) {
+				this.arrBaner = arrBaner;
+			}
+			//Метод випадкового вибору об’єкта (графічного зображення та посилання)
+			randomObjSelection() {
+				randomIndex = Math.floor(Math.random() * this.arrBaner.length)
+
+			}
+			//Метод виведення випадкового банера
+			displayingRandomBanner() {
+				this.randomObjSelection()
+				let imgTag = `<img src="${this.arrBaner[randomIndex].pics}" alt="Banner Image" width="200" height="200">`;
+				let linkTag = `<a href="${this.arrBaner[randomIndex].link}" target="_blank">${imgTag}</a>`;
+
+				document.write(linkTag);
+			}
+
+		}
+
+		let result = new Baner(arrBaner)
+		result.displayingRandomBanner()
+
+	</script>
+</body>
+
+</html>

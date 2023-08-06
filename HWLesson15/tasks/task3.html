@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №3</title>
+</head>
+
+<body>
+	<h1>Задача №3</h1>
+	<h4> Розробити клас MultChecker для перевірки таблиці множення</h4>
+
+	<script>
+		let numberChecked = 0;
+		let numberCorrectAnswers = 0;
+		let numberIncorrectAnswers = 0;
+		let randomNumber = 0;
+		class MultChecker {
+
+			constructor(numberChecked, numberCorrectAnswers, numberIncorrectAnswers) {
+				this.numberChecked = numberChecked;
+				this.numberCorrectAnswers = numberCorrectAnswers;
+				this.numberIncorrectAnswers = numberIncorrectAnswers;
+
+			}
+			// Генерування прикладу (метод випадковим чином визначає друге число, перше число фіксоване)
+			generateAnExample() {
+				randomNumber = Math.floor(Math.random() * 10) + 1;
+				let userResult = 0;
+				do {
+					this.numberChecked = parseInt(prompt('На яке число перевіряємо таблицю множення? '));
+
+					if (this.numberChecked > 10) {
+						alert(`Введіть правильне число від 1 до 10 `);
+					} else {
+						userResult = parseInt(prompt(`Який буде результат даного виразу? ${this.numberChecked} * ${randomNumber}`));
+					}
+				} while (this.numberChecked > 10 || isNaN(userResult));
+
+				return userResult;
+			}
+			//Перевірка правильності вказаної відповіді
+			checkingTheCorrectness(generateAnExample) {
+				if (generateAnExample === (this.numberChecked * randomNumber)) {
+					alert('Вітаю ви правильно відповіли')
+					this.numberCorrectAnswers++;
+				} else {
+					alert(' Неправильно ')
+					this.numberIncorrectAnswers++;
+				}
+			}
+
+			//render
+			render() {
+				let resultConfirm;
+				do {
+					this.checkingTheCorrectness(this.generateAnExample());
+					resultConfirm = confirm('Бажаєте ще перевірити свої знання? ')
+				} while (resultConfirm);
+
+				alert(`Правильних відповідей ${this.numberCorrectAnswers}. Неправильних відповідей ${this.numberIncorrectAnswers}`)
+			}
+		}
+
+		let start = new MultChecker(numberChecked, numberCorrectAnswers, numberIncorrectAnswers)
+		start.render()
+
+	</script>
+
+</body>
+
+</html>
