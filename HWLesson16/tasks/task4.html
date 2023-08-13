@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №4</title>
+</head>
+
+<body>
+	<h1>Задача №4</h1>
+	<h4>Створити клас TBankomat, який моделює роботу банкомата. Клас повинен містити поля для зберігання кількості купюр
+		кожного із номіналів від 5 до 200 гривень. Реалізувати методи знаходження максимальної та мінімальної сум, які
+		може видати банкомат, та метод зняття деякої суми.</h4>
+	<script>
+
+		class TBankomat {
+			constructor(fiveValue, tenValue, twentyValue, fiftyValue, hundredVelue, twoHundredVelue) {
+				this.nominal = {
+					5: fiveValue,
+					10: tenValue,
+					20: twentyValue,
+					50: fiftyValue,
+					100: hundredVelue,
+					200: twoHundredVelue,
+				}
+			}
+			// Метод для введення суми грошей користувачем
+			inputUserNumber() {
+				const userNumber = parseInt(prompt('Введіть суму грошей яку бажаєте зняти'));
+				if (!isNaN(userNumber) && userNumber > 0) {
+					return userNumber;
+				} else {
+					alert('Введено некоректне значення. Спробуйте ще раз.');
+					return this.inputUserNumber();
+				}
+			}
+
+			//метод знаходження максимальної суми яку може видати банкомат 
+			maxSum() {
+				let sum = 0;
+				for (const nominal in this.nominal) {
+					sum += parseInt(nominal) * this.nominal[nominal]
+				}
+				return sum;
+			}
+			//метод знаходження мінімальної суми яку може видати банкомат
+			minSum() {
+				let minNominal = Infinity;
+				for (const nominal in this.nominal) {
+					if (this.nominal[nominal] > 0 && parseInt(nominal) < minNominal) {
+						minNominal = parseInt(nominal);
+					}
+				}
+				return minNominal;
+			}
+
+			//метод зняття готівки 
+
+			cashWithdrawal(sum) {
+				if (sum <= this.maxSum()) {
+					let restSum = sum;
+					let output = {};
+
+					const sortedNominals = Object.keys(this.nominal).sort((a, b) => b - a);
+
+					for (const nominal of sortedNominals) {
+						const count = Math.min(Math.floor(restSum / parseInt(nominal)), this.nominal[nominal]);
+						if (count > 0) {
+							output[nominal] = count;
+							this.nominal[nominal] -= count;
+							restSum -= count * parseInt(nominal);
+						}
+					}
+
+					if (restSum === 0) {
+						return output;
+					}
+				}
+
+				return null;
+			}
+			toString() {
+				let result = "Стан банкомата: ";
+				for (const nominal in this.nominal) {
+					result += `${nominal} грн: ${this.nominal[nominal]} шт. `;
+				}
+				return result;
+			}
+
+		}
+
+		let bancomat = new TBankomat(50, 30, 10, 50, 600, 100);
+		document.write("Максимальна сума, яку може видати банкомат: " + bancomat.maxSum() + "<br>");
+		document.write("Мінімальна сума, яку може видати банкомат: " + bancomat.minSum() + "<br>");
+		let userNumber = bancomat.inputUserNumber();
+		const bancomatResult = bancomat.cashWithdrawal(userNumber);
+
+		if (bancomatResult !== null) {
+			document.write("Видано грошей: " + JSON.stringify(bancomatResult) + "<br>");
+		} else {
+			document.write("Неможливо видати вказану суму" + "<br>");
+		}
+
+		document.write("Залишок грошей в банкоматі:<br>");
+		document.write(bancomat.toString());
+	</script>
+
+</body>
+
+</html>

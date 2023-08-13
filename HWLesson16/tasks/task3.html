@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №3</title>
+</head>
+
+<body>
+	<h1>Задача №3</h1>
+	<h4>Задача 3. Об’єкт “Фірма” (використати члени-класи)</h4>
+
+
+	<script>
+		class Company {
+			constructor(companyName, initYear, initMonth) {
+				this.name = companyName;
+				this.dateOfFoundation = {
+					Year: initYear,
+					Month: initMonth,
+				};
+				this.serviceCompany = [];
+				this.branch = [];
+			}
+			// метод додавання послуги
+			addService(newService) {
+				this.serviceCompany.push(newService);
+			}
+
+			//метод додавання філії
+
+			addBranch(newBranch) {
+				this.branch.push(newBranch);
+			}
+			// метод визначення кількості років існування компанії
+			numberYears() {
+				const currentYear = 2023;
+				let resultYear = currentYear - this.dateOfFoundation.Year
+				return resultYear;
+			}
+			//метод пошуку філій по місту 
+			searchBranches(city) {
+				let resultserch = this.branch.filter(branch => branch.city === city)
+				return resultserch
+			}
+			//метод пошуку послуг по ціні і терміну 
+			searchServices(cost, deadline) {
+				let resultserch = this.serviceCompany.filter(serviceCompany => serviceCompany.serviceCost === cost && serviceCompany.serviceDeadline === deadline)
+				return resultserch
+			}
+
+		}
+
+		class Service {
+			#cost
+			constructor(serviceName, cost, deadline) {
+				this.nameService = serviceName;
+				this.serviceCost = cost;
+				this.serviceDeadline = deadline;
+			}
+			get serviceCost() {
+				return this.#cost
+			}
+			set serviceCost(newCost) {
+				if (newCost < 0) {
+					throw new Error('Ціна за послугу не може бути меншою за 0 ')
+				}
+				else this.#cost = newCost
+			}
+
+			toString() {
+				return `<br> Назва послуги - ${this.nameService}<br>`
+			}
+
+		}
+
+
+		class BranchOffice {
+			constructor(country, city, street, houseNumber) {
+				this.country = country;
+				this.city = city;
+				this.street = street;
+				this.houseNumber = houseNumber;
+			}
+			toString() {
+				return `<br> Країна - ${this.country}, Місто - ${this.city}, Вулиця - ${this.street}, Номер будинку - ${this.houseNumber} <br>`
+			}
+		}
+
+
+		let resultCompany = new Company('Наша Фірма', 2011, 8);
+
+		resultCompany.addService(new Service('Веб-розробка', 1000, 30));
+		resultCompany.addService(new Service('Дизайн', 50, 20));
+
+		resultCompany.addBranch(new BranchOffice('Україна', 'Ужгород', 'Вулиця 1', 10))
+		resultCompany.addBranch(new BranchOffice('Україна', 'Ужгород', 'Вулиця 2', 20))
+		resultCompany.addBranch(new BranchOffice('Україна', 'Львів', 'Вулиця 1', 30))
+
+		document.write("Кількість років існування фірми: " + resultCompany.numberYears() + "<br><br><br>");
+		document.write(" виведення всіх філіалів фірми у вказаному місті <br>" + resultCompany.searchBranches("Ужгород") + "<br><br><br>");
+		document.write("виведення на екран послуг, що можуть бути виконані за вказану суму грошей та вказаний термін часу " + resultCompany.searchServices(1000, 30) + "<br><br><br>");
+
+
+
+
+
+
+
+
+	</script>
+
+</body>
+
+</html>

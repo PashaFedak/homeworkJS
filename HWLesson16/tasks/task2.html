@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<h1>Задача №2</h1>
+	<h4>Створити клас TMoney для роботи з грошовими сумами. Сума повинна зберігатися у вигляді доларового еквіваленту.
+		Реалізувати методи додавання/вилучення грошової маси, вказуючи необхідну суму у гривнях, та визначення курсу
+		долара, при якому сума у гривнях збільшиться на 100. Курс долара зберігати в окремому полі. </h4>
+
+
+	<script>
+		class TMoney {
+			#balanceInDollars;
+
+			constructor(balanceInGRN, rateInUSD) {
+				this.RateInDollars = rateInUSD; //курс доллара
+				this.Balance = balanceInGRN;
+			}
+
+			changeSum() {
+				const operation = prompt('Введіть операцію (+ або -):');
+				const newBalanceGrn = parseInt(prompt('Введіть кількість грошей які хочете ввести або вивести'));
+
+				if (operation === '+' || operation === '-') {
+					if (operation === '+') {
+						this.addMoney(newBalanceGrn);
+					} else {
+						this.subtractionMoney(newBalanceGrn);
+
+					};
+					document.write(`' ${this.toString()}<br>`);
+				} else {
+					document.write('Неправильна операція. Введіть "+" або "-"');
+				}
+			}
+			get Balance() {
+				return this.#balanceInDollars * this.RateInDollars;
+			}
+
+			set Balance(newBalanceGrn) {
+				if (newBalanceGrn < 0) {
+					throw new Error('Помилка. Сума грошей не може бути ниже 0 ')
+				}
+				this.#balanceInDollars = newBalanceGrn / this.RateInDollars
+			}
+
+			//Метод додавання 
+			addMoney(newBalanceGrn) {
+				if (newBalanceGrn < 0) {
+					throw new Error('Помилка. Не правильно задана сума грошей')
+				}
+				this.Balance += newBalanceGrn;
+			}
+			//Метод віднімання 
+			subtractionMoney(newBalanceGrn) {
+				if (newBalanceGrn < 0) {
+					throw new Error('Помилка. Не правильно задана сума грошей')
+				}
+				if (newBalanceGrn > this.Balance)
+					this.Balance -= newBalanceGrn
+			}
+
+			getrateInUSD100() {
+				return (this.Balance + 100) / this.#balanceInDollars
+			}
+			toString() {
+				return ` курс доллара ${this.RateInDollars}. Баланс $ - ${this.#balanceInDollars}`;
+			}
+		}
+		// const openingBalance = parseInt(prompt('Введіть початковий баланс'))
+		const rateInUSD = parseInt(prompt('Введіть теперішній курс'));
+		let resultConfirm;
+		let result = new TMoney(newBalanceGrn = 0, rateInUSD);
+		do {
+
+			result.changeSum()
+			resultConfirm = confirm('Будете продовжувати? ')
+		} while (resultConfirm);
+
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<h1>Задача №1</h1>
+	<h4>Створити клас TDate для роботи із датами у форматі “день.місяць.рік”. Дата представляється структурою із
+		трьома<br>
+		полями. Реалізувати методи збільшення/зменшення дати на певну кількість днів, місяців чи років. <br>Введення та
+		виведення дати реалізувати за допомогою методу toString.</h4>
+
+
+	<script>
+		//=====================================================================
+
+		let day = 6;
+		let month = 8;
+		let year = 2023;
+
+		class TDate {
+			#day;
+			#month;
+			#year;
+
+			constructor(initDay, initMonth, initYear) {
+				this.date = {
+					Day: initDay,
+					Month: initMonth,
+					Year: initYear,
+				}
+
+				this.daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]; // дні не високосному році 
+				this.daysInMonthLeapYear = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]; // дні високосного року.
+			}
+			get Day() { return this.date.#day }
+			get Month() { return this.date.#month }
+			get Year() { return this.date.#year }
+			set Day(newDayValue) {
+				if (newDayValue > this.daysInMonth[this.#month - 1]) throw new Error('Введено некоректне значення day')
+				else this.date.Day = newDayValue
+			}
+			set Month(newMonthValue) {
+				if (newMonthValue > 12) throw new Error('Введено некоректне значення month')
+				else this.date.Month = newMonthValue
+			}
+			set Year(newYearValue) {
+				if (newYearValue <= 0) throw new Error('Введено некоректне значення year')
+				else this.date.Year = newYearValue
+			}
+			// Метод для отримання дати у форматі "день.місяць.рік"
+			toString() {
+				// const { day, month, year } = this.date;
+				return `${this.date.Day}.${this.date.Month}.${this.date.Year}`;
+			}
+
+			// Метод який запитує у користувача добавляти або віднімати дні, місяці і роки.
+			changeDate() {
+				const operation = prompt('Введіть операцію (+ або -):');
+				const amountDays = parseInt(prompt('Введіть кількість Днів:'));
+				const amountMonth = parseInt(prompt('Введіть кількість Місяців:'));
+				const amountYears = parseInt(prompt('Введіть кількість Років:'));
+
+
+				if (operation === '+' || operation === '-') {
+					document.write(`'Стара дата:', ${this.toString()} <br>`);
+					if (operation === '+') {
+						this.addDays(amountDays);
+						this.addMonth(amountMonth);
+						this.addYears(amountYears);
+					} else {
+						this.subtractDays(amountDays);
+						this.subtractMonth(amountMonth);
+						this.subtractYears(amountYears);
+
+					};
+					document.write(`'Нова дата:', ${this.toString()}<br>`);
+				} else {
+					document.write('Неправильна операція. Введіть "+" або "-"');
+				}
+			}
+			// Метод додавання днів =========================================================
+			addDays(amountDays) {
+				if (amountDays > 0) {
+					this.date.Day += amountDays;
+					do {
+
+						if ((this.date.Year % 4 === 0 && this.date.Year % 100 !== 0) || this.date.Year % 400 === 0) { //Перевірка чи є рік високосним 
+							if (this.date.Day > this.daysInMonthLeapYear[this.date.Month - 1]) {
+								this.date.Day -= this.daysInMonthLeapYear[this.date.Month - 1];
+								this.date.Month++;
+								if (this.date.Month > 12) {
+									this.date.Month = 1;
+									this.date.Year++;
+								}
+							}
+						} else {
+
+							if (this.date.Day > this.daysInMonth[this.date.Month - 1]) {
+								this.date.Day -= this.daysInMonth[this.date.Month - 1];
+								this.date.Month++;
+								if (this.date.Month > 12) {
+									this.date.Month = 1;
+									this.date.Year++;
+								}
+							}
+						}
+
+					} while (this.date.Day > this.daysInMonth[this.date.Month - 1] || this.date.Day > this.daysInMonthLeapYear[this.date.Month - 1]);
+				} else {
+					return this.date.Day
+				}
+			}
+			// метод додавання місяців ======================================================
+			addMonth(amountMonth) {
+				if (amountMonth > 0) {
+					this.date.Month += amountMonth;
+					do {
+						if (this.date.Month > 12) {
+							this.date.Month -= 12;
+							this.date.Year++;
+						}
+					} while (this.date.Month > 12);
+				} else {
+					return this.date.Month
+				}
+			}
+			// Метод додавання років ======================================================== 
+			addYears(amountYears) {
+				if (amountYears > 0) {
+					this.date.Year += amountYears;
+				} else {
+					return this.date.Year
+				}
+
+			}
+			// Метод віднімання днів ========================================================
+			subtractDays(amountDays) {
+
+				if (amountDays > 0) {
+					this.date.Day -= amountDays;
+					do {
+
+						if ((this.date.Year % 4 === 0 && this.date.Year % 100 !== 0) || this.date.Year % 400 === 0) { //Перевірка чи є рік високосним 
+							if (this.date.Day <= 0) {
+								this.date.Month--;
+								if (this.date.Month <= 0) {
+									this.date.Month = 12;
+									this.date.Year--;
+								}
+								this.date.Day += this.daysInMonthLeapYear[this.date.Month - 1]
+							}
+						} else {
+
+							if (this.date.Day <= 0) {
+								this.date.Month--;
+								if (this.date.Month <= 0) {
+									this.date.Month = 12;
+									this.date.Year--;
+								}
+								this.date.Day += this.daysInMonth[this.date.Month - 1]
+
+							}
+						}
+
+					} while (this.date.Day <= 0);
+				} else {
+					return this.date.Day
+				}
+			}
+			// Метод віднімання місяців =====================================================
+			subtractMonth(amountMonth) {
+
+				if (amountMonth > 0) {
+					this.date.Month -= amountMonth;
+					do {
+						if (this.date.Month <= 0) {
+							this.date.Month += 12;
+							this.date.Year--;
+						}
+
+					} while (this.date.Month <= 0);
+				} else {
+					return this.date.Month
+				}
+
+			}
+			// Метод віднімання років========================================================
+			subtractYears(amountYears) {
+				if (amountYears > 0) {
+					this.date.Year -= amountYears;
+				} else {
+					return this.date.Year
+				}
+			}
+		}
+
+
+		let result = new TDate(day, month, year);
+		result.Year = parseInt(prompt(`Введіть рік `, 2000));
+		result.Month = parseInt(prompt(`Введіть номер місяця`, 10));
+		result.Day = parseInt(prompt(`Введіть число дня `, 5));
+		result.changeDate()
+	</script>
+
+</body>
+
+</html>
