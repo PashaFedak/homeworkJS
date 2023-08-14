@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №1</title>
+</head>
+
+<body>
+	<h1>Задача №1</h1>
+	<h4>Створити клас, що дозволяє виконувати такі операції над масивами: знаходження кількості додатних, кількості
+		від’ємних, кількість входжень деякого числа (статичні методи)</h4>
+
+
+	<script>
+
+
+		class OperationsOnArrays {
+
+			static arrayNumber1 = [3, 5, 14, -4, 5, -8, 9, 3, 5];
+
+			//Метод знаходження додатних чисел
+			static numberOfPositiveNumbers() {
+				let count = 0;
+				for (const iterator of OperationsOnArrays.arrayNumber1) {
+					if (iterator > 0) {
+						count++;
+					}
+				}
+				return count;
+			}
+
+
+			// Метод знаходження кількості відємних чисел 
+			static numberOfNegativeNumbers() {
+				let count = 0;
+				for (const iterator of OperationsOnArrays.arrayNumber1) {
+					if (iterator < 0) {
+						count++;
+					}
+				}
+				return count;
+			}
+
+			//Метод знаходження кількості входжень деякого числа
+			static findNumber(number) {
+
+				let count = 0;
+				for (const iterator of OperationsOnArrays.arrayNumber1) {
+					if (iterator === number) {
+						count++;
+					}
+				}
+				return count;
+			}
+
+		}
+		let result = new OperationsOnArrays()
+		document.write("знаходження кількості додатних чисел " + OperationsOnArrays.numberOfPositiveNumbers() + "<br>");
+		document.write("знаходження кількості відємних чисел  чисел " + OperationsOnArrays.numberOfNegativeNumbers() + "<br>");
+		document.write("знаходження кількості входжень деякого числа " + OperationsOnArrays.findNumber(5) + "<br>");
+
+	</script>
+
+</body>
+
+</html>

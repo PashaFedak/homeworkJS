@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №4</title>
+</head>
+
+<body>
+	<h1>Задача №4</h1>
+	<h4>Особиста бібліотека. Картотека домашньої бібліотеки: дані книги (автори (піб, рік народження, короткий опис),
+		назва книги, жанр, видавництво (назва, реєстраційний номер, рік засування)). Реалізувати розділи бібліотеки
+		організувати додавання/вилучення книг та вибір книг за назвою, за ПІБ автора, за видавництвом.</h4>
+
+
+	<script>
+
+		class Library {
+			constructor() {
+				this.books = [];
+			}
+
+			addBook(book) {
+				this.books.push(book);
+			}
+
+			removeBook(title) {
+				this.books = this.books.filter(book => book.nameBook !== title);
+			}
+
+			findBookTitle(title) {
+				return this.books.filter(book => book.nameBook === title);
+			}
+
+			findBookAuthorName(authorName) {
+				return this.books.filter(book => book.author.name === authorName);
+			}
+
+			findBookPublisher(namePublisher) {
+				return this.books.filter(book => book.publisher.namePublisher === namePublisher);
+			}
+
+			adventureSection() {
+				return this.books.filter(book => book.genre === "Пригоди");
+			}
+
+			detectiveSection() {
+				return this.books.filter(book => book.genre === "Детектив");
+			}
+			toString() {
+				return `${this.adventureSection}`
+			}
+		}
+
+		class Book {
+			constructor(author, nameBook, genre, publisher) {
+				this.author = author;
+				this.nameBook = nameBook;
+				this.genre = genre;
+				this.publisher = publisher;
+			}
+		}
+
+		class Author {
+			constructor(name, birthYear, description) {
+				this.name = name;
+				this.birthYear = birthYear;
+				this.description = description;
+			}
+		}
+
+		class Publisher {
+			constructor(namePublisher, registrationNumber, yearPromotion) {
+				this.namePublisher = namePublisher;
+				this.registrationNumber = registrationNumber;
+				this.yearPromotion = yearPromotion;
+			}
+		}
+
+		const library = new Library();
+
+		const author1 = new Author("Іван Петренко", 1980, "Відомий письменник");
+		const publisher1 = new Publisher("Видавництво Книголюб", "123456", 2000);
+		const book1 = new Book(author1, "Пригоди у лісі", "Пригоди", publisher1);
+		library.addBook(book1);
+
+		const author2 = new Author("Марія Іваненко", 1995, "Талановита авторка");
+		const publisher2 = new Publisher("Видавництво Читайко", "789012", 2015);
+		const book2 = new Book(author2, "Таємниця старого замку", "Детектив", publisher2);
+		library.addBook(book2);
+
+
+		console.log("Бібліотека", library.books);
+		console.log("Пригоди:", library.adventureSection());
+		console.log("Детективи:", library.detectiveSection());
+
+
+
+	</script>
+</body>
+
+</html>
