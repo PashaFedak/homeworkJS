@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №3</title>
+	<style>
+		.container {
+			display: flex;
+			flex-direction: column;
+
+		}
+
+		.btn {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №3</h1>
+	<h4>Користувач задає рік народження. Визначити кількість років користувача.</h4>
+
+
+	<div class="container">
+
+		<label>
+			Введіть рік народження
+			<input id="userData" type="number" value="0">
+		</label>
+		<div class="btn">
+			<button id="Calculate">
+				Розрахувати
+			</button>
+		</div>
+		<label>
+			Кількість років користувача
+			<input id="age" type="number" value="0">
+		</label>
+
+	</div>
+	<script>
+		function getCalculate() {
+			const year = 2023;
+			let yearUser = parseInt(document.getElementById('userData').value);
+			if (yearUser < 0) {
+				alert('Ви ввели не правильні дані!')
+			} else {
+				let result = year - yearUser;
+				document.getElementById('age').value = result
+			}
+
+		}
+		window.onload = function () {
+			document.getElementById('Calculate').onclick = getCalculate
+		}
+	</script>
+
+</body>
+
+</html>

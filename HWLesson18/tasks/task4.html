@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №4</title>
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<h1> Задача №4</h1>
+	<h4> Наперед задано у скрипті масив зі списком бажань. Після завантаження сторінки випадковим чином вибираються 3 і
+		відображаються у окремих div (їх треба створити і додати на сторінку)</h4>
+
+
+	<script>
+		let array = ['Бажання 1', 'Бажання 2', 'Бажання 3', 'Бажання 4', 'Бажання 5', 'Бажання 6']
+		for (let i = 0; i < 3; i++) {
+			if (array.length === 0) {
+				break; // Якщо масив порожній, завершуємо цикл
+			}
+			randomNumber = Math.floor(Math.random() * array.length);
+			let elDiv = document.createElement('div');
+			elDiv.innerText = array[randomNumber];
+			document.body.append(elDiv);
+			array.splice(randomNumber, 1); // Видаляємо вибране слово з масиву. Це зроблено для того, щоб слова не повторювались.
+		}
+
+	</script>
+</body>
+
+</html>

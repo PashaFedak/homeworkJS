@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №7</title>
+	<style>
+		.container {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.cont3 {
+			margin: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №7</h1>
+	<h4>Подорож складається з 3 етапів. На кожному етапі користувач може вибрати один з видів транспорту (авто, автобус,
+		літак - випадаючий список), харчування <br>(сніданок, обід, вечеря – checkbоx) та одного з 3-х гідів(використати -
+		radio buttons). Ціни визначте самі. Підрахувати загальну вартість.</h4>
+
+	<div class="container">
+		<div class="cont3">
+
+			Виберіть один із транспортів
+			<select id="CarSelect" class="car-container">
+				<option value="100">Авто</option>
+				<option value="20">Автобус</option>
+				<option value="480">Літак</option>
+			</select>
+
+		</div>
+		<div class="cont3">
+
+			Виберіть харчування <br>
+			<label>
+				Сніданок
+				<input type="checkbox" value="35" />
+			</label>
+			<label>
+				Обід
+				<input type="checkbox" value="25" />
+			</label>
+			<label>
+				Вечеря
+				<input type="checkbox" value="55" />
+			</label>
+
+		</div>
+		<div class="cont3">
+
+			Виберіть одного з трьох гідів <br>
+			<label>
+				Іван
+				<input type="radio" name="guide" value="34" />
+			</label>
+			<label>
+				Діма
+				<input type="radio" name="guide" value="43" />
+			</label>
+			<label>
+				Петро
+				<input type="radio" name="guide" value="52" />
+			</label>
+
+		</div>
+		<div><button id="btn">Підрахувати</button></div>
+		<div>Загальна ціна = <span id="res"> </span></div>
+
+	</div>
+
+	<script>
+		function getSum() {
+			let total = 0;
+
+			// Додаємо вартість транспорту
+			const carSelect = document.getElementById('CarSelect');
+			total += parseInt(carSelect.value);
+
+			// Додаємо вартість харчування
+			const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+			checkboxes.forEach(checkbox => {
+				total += parseInt(checkbox.value);
+			});
+
+			// Додаємо вартість гіда (якщо обраний)
+			const radioButtons = document.querySelectorAll('input[type="radio"]:checked');
+			if (radioButtons.length > 0) {
+				total += parseInt(radioButtons[0].value);
+			}
+
+			// Відображаємо загальну ціну
+			res.textContent = total;
+		}
+
+		window.onload = function () {
+			document.getElementById('btn').onclick = getSum
+		}
+	</script>
+</body>
+
+</html>

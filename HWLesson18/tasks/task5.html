@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №5</title>
+	<style>
+		.container {
+			display: flex;
+			flex-direction: column;
+
+		}
+
+		.btnn {
+			margin-top: 10px;
+			margin-bottom: 10px;
+			width: 200px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №5</h1>
+	<h4>Користувач задає кількість рядків і стовпців. Відобразити таблицю, у клітинках якої знаходяться числа 1, 2, 3
+	</h4>
+
+	<div class="container">
+		<label>
+			Введіть кількість рядків
+			<input id="FirstNumber" type="number" value="0">
+		</label>
+
+		<label>
+			Введіть кількість стовпців
+			<input id="SecondNumber" type="number" value="0">
+		</label>
+		<button id="btn" class="btnn"> Створити таблицю</button>
+
+		<div id="Cont"></div>
+	</div>
+	<script>
+		function getTable() {
+			let number = 1;
+			let firstNum = parseInt(document.getElementById('FirstNumber').value); // tr  рядки
+			let secondNum = parseInt(document.getElementById('SecondNumber').value); // td стовпці
+			if (firstNum <= 0 || secondNum <= 0) {
+				alert('Кількість рядків і стовпців повинно бути більше 0')
+				return;
+			}
+			document.getElementById('Cont').innerHTML = '';
+			let table = document.createElement('table');
+			table.setAttribute('border', '2px');
+			table.setAttribute('id', 'UserTable');
+
+			document.getElementById('Cont').append(table);
+			for (let i = 0; i < firstNum; i++) {
+				let tr = document.createElement('tr');
+				tr.setAttribute('id', 'ElementTr_' + i);
+				document.getElementById('UserTable').append(tr);
+				for (let j = 0; j < secondNum; j++) {
+					let td = document.createElement('td');
+					td.innerText = number;
+					document.getElementById('ElementTr_' + i).append(td);
+					number++;
+				}
+
+			}
+
+
+		}
+		window.onload = function () {
+			document.getElementById('btn').onclick = getTable;
+		}
+	</script>
+
+</body>
+
+</html>

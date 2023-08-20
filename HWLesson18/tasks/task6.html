@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №6</title>
+	<style>
+		.container {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.btn {
+			width: 200px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+
+		.table-container {
+
+			max-width: 400px;
+			display: flex;
+			flex-wrap: wrap;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №6</h1>
+	<h4>Користувач задає кількість оцінок і натискає на кнопку «get table». В результаті формується таблиця з input, куди
+		<br>
+		користувач вводить оцінки. Після цього натискає на кнопку “get sum” і знаходить середнє значення.
+	</h4>
+
+	<div class="container">
+		<label>
+			задайте кількість оцінок
+			<input id="Quantity" type="number" value="0">
+		</label>
+		<button id="GenerateTable" class="btn">Згенерувати таблицю</button>
+		<div id="table-container" class="table-container"></div>
+		<button id="Sum" class="btn">Підрахувати середнє</button>
+		<div>Середня оцінка = <span id="res"> </span></div>
+
+	</div>
+
+	<script>
+		function getTable() {
+
+			let quantity = parseInt(document.getElementById('Quantity').value); // tr  рядки
+			// let secondNum = parseInt(document.getElementById('SecondNumber').value); // td стовпці
+			// if (firstNum <= 0 || secondNum <= 0) {
+			// 	alert('Кількість рядків і стовпців повинно бути більше 0')
+			// 	return;
+			// }
+			document.getElementById('table-container').innerHTML = '';
+			let table = document.createElement('table');
+			table.setAttribute('border', '2px');
+			table.setAttribute('id', 'UserTable');
+
+			document.getElementById('table-container').append(table);
+
+
+			for (let j = 0; j < Math.ceil(quantity / 2); j++) {
+				let tr = document.createElement('tr');
+				tr.setAttribute('id', 'ElementTr');
+				document.getElementById('UserTable').append(tr);
+
+				let td1 = document.createElement('td');
+				document.getElementById('ElementTr').append(td1);
+				const input1 = document.createElement('input');
+				input1.setAttribute('id', 'UserNumber_' + (j * 2));
+				input1.type = 'number';
+				td1.append(input1);
+				const td2 = document.createElement('td');
+				if (j * 2 + 1 < quantity) { // Перевірка, чи не вийшли за межі кількості оцінок
+					const input2 = document.createElement('input');
+					input2.setAttribute('id', 'UserNumber_' + (j * 2 + 1));
+					input2.type = 'number';
+					td2.appendChild(input2);
+				}
+				tr.append(td1);
+				tr.append(td2);
+			}
+
+
+		}
+
+		function getSum() {
+
+			let userQuantity = parseInt(document.getElementById('Quantity').value);
+			let sum = 0;
+			for (let i = 0; i < userQuantity; i++) {
+				let inputNumber = parseInt(document.getElementById('UserNumber_' + i).value)
+				sum += inputNumber;
+			}
+			let resultSum = sum / userQuantity;
+			document.getElementById('res').innerText = resultSum.toFixed(2)
+		}
+		window.onload = function () {
+			document.getElementById('GenerateTable').onclick = getTable;
+			document.getElementById('Sum').onclick = getSum;
+
+		}
+
+	</script>
+
+</body>
+
+</html>

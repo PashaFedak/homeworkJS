@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №1</title>
+	<style>
+		.container {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.conbutton {
+			margin-bottom: 10px;
+		}
+
+		.label {
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №1</h1>
+	<h4>Розробити калькулятор</h4>
+
+	<div class="container">
+		<label class="label">
+			First number
+			<input id="First" type="number" value="0">
+		</label>
+		<label class="label">
+			Second number
+			<input id="Second" type="number" value="0">
+		</label>
+		<div class="conbutton">
+			<button id="Sum">Додати</button>
+			<button id="Subtract">Відняти</button>
+			<button id="Multiply">Помножити</button>
+			<button id="Division">Поділити</button>
+		</div>
+
+
+		<label class="label">
+			Результат
+			<input id="Result" type="number">
+		</label>
+
+	</div>
+
+	<script>
+		function getSum() {
+			let firstNumber = parseFloat(document.getElementById('First').value);
+			let secondNumber = parseFloat(document.getElementById('Second').value);
+			let sumResult = firstNumber + secondNumber;
+			document.getElementById('Result').value = sumResult.toFixed(2)
+		}
+		function getSubtract() {
+			let firstNumber = parseFloat(document.getElementById('First').value);
+			let secondNumber = parseFloat(document.getElementById('Second').value);
+			let sumResult = firstNumber - secondNumber;
+			document.getElementById('Result').value = sumResult.toFixed(2)
+
+		}
+		function getMultiply() {
+			let firstNumber = parseFloat(document.getElementById('First').value);
+			let secondNumber = parseFloat(document.getElementById('Second').value);
+			let sumResult = firstNumber * secondNumber;
+			document.getElementById('Result').value = sumResult.toFixed(2)
+
+		}
+		function getDivision() {
+			let firstNumber = parseFloat(document.getElementById('First').value);
+			let secondNumber = parseFloat(document.getElementById('Second').value);
+			let sumResult = firstNumber / secondNumber;
+			document.getElementById('Result').value = sumResult.toFixed(2)
+
+		}
+
+		window.onload = function () {
+			document.getElementById('Sum').onclick = getSum;
+			document.getElementById('Subtract').onclick = getSubtract;
+			document.getElementById('Multiply').onclick = getMultiply;
+			document.getElementById('Division').onclick = getDivision;
+
+		}
+	</script>
+</body>
+
+</html>
