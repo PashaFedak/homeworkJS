@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №7</title>
+	<style>
+		body {
+			background-color: rgb(21, 21, 68);
+			color: azure;
+		}
+
+
+		.snow-element {
+			position: absolute;
+			background-color: white;
+			border-radius: 50%;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №7</h1>
+	<h4>Відобразити падаючий сніг. Сніжинка з’являється у верхній частині екрану (top =0) і з випадковою швидкістю
+		рухається вниз (у setInterval викликати метод, у якому додавати крок до top). Як тільки сніжинка досягає нижньої
+		частини екрану (top>maxTop) вона знову повинна з’явитись у верхній частині екрану (top=0).</h4>
+
+
+	<script>
+
+		class CreateSnow {
+
+			constructor(quantity) {
+				this.quantity = quantity;
+				this.maxTop = window.innerHeight;
+			}
+
+			randomNumber(min = 1, max = 30) {
+				return min + Math.floor(Math.random() * (max - min + 1));
+			}
+
+
+			render() {
+				this.snowContainer = document.createElement('div');
+				document.body.append(this.snowContainer)
+				for (let i = 0; i < this.quantity; i++) {
+					const snow = document.createElement('div');
+					const size = this.randomNumber(15, 40) + 'px';
+					snow.className = 'snow-element';
+					snow.style.width = size;
+					snow.style.height = size;
+					snow.style.left = this.randomNumber(0, 100) + '%';
+					snow.style.top = 0 + 'px';
+					this.snowContainer.append(snow);
+				}
+				this.snowRun();
+			}
+
+			snowRun() {
+				for (const element of this.snowContainer.children) {
+					let top = 0;
+					setInterval(() => {
+						top = (parseFloat(top) + 0.4) + 'px';
+						element.style.top = top;
+						if (parseFloat(top) > this.maxTop) {
+							top = '0px';
+						}
+					}, this.randomNumber(10, 40));
+				}
+			}
+
+		}
+
+		window.onload = function () {
+			const resultSnow = new CreateSnow(60);
+			resultSnow.render();
+		}
+
+	</script>
+</body>
+
+</html>

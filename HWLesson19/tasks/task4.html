@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №4</title>
+
+	<style>
+		.container {
+			display: flex;
+		}
+
+		.containerTable {
+			margin: 15px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №4</h1>
+	<h4>Дано 3 таблиці розмірності 3*3 з випадковими числами. Якщо відбувається клік на якійсь із клітинок, то до
+		відповідної таблиці додається червона рамка (спробуйте додати можливість відображення кількості кліків біля назви
+		таблиці з використанням відповідно доданого для цього атрибута).</h4>
+
+	<div id="container" class="container"></div>
+
+	<script>
+
+		class CreateTable {
+			constructor(quantityTable, numberRows, numberColumns) {
+				this.quantityTable = quantityTable;
+				this.numberRows = numberRows;
+				this.numberColumns = numberColumns;
+				this.clickCounts = new Array(this.quantityTable).fill(0); // Масив для зберігання кількості кліків по таблицях
+			}
+
+			render(containerSelector) {
+				if (containerSelector) {
+					const container = document.querySelector(containerSelector);
+
+					for (let i = 0; i < this.quantityTable; i++) {
+						this.containerTable = document.createElement('div');
+						this.containerTable.setAttribute('class', 'containerTable');
+						this.containerTable.innerText = `Таблиця №${i + 1} Кількість кліків: `;
+						const span = document.createElement('span')
+						this.containerTable.append(span);
+
+
+						const table = document.createElement('table');
+						table.setAttribute('class', 'table');
+						table.style.border = '2px solid black';
+
+						for (let j = 0; j < this.numberRows; j++) {
+							const row = document.createElement('tr');
+
+							for (let g = 0; g < this.numberColumns; g++) {
+								const column = document.createElement('td');
+								column.style.padding = "10px";
+								column.style.border = '1px solid black';
+								column.onclick = () => {
+									const currentTableIndex = i;
+									this.clickCounts[currentTableIndex]++;
+									span.innerText = ` ${this.clickCounts[currentTableIndex]}`;
+									column.closest('.table').style.border = '2px solid red';
+
+								}
+								row.appendChild(column);
+							}
+
+							table.appendChild(row);
+						}
+
+						this.containerTable.appendChild(table);
+						container.appendChild(this.containerTable);
+					}
+				}
+			}
+		}
+
+		window.onload = function () {
+			const result = new CreateTable(3, 3, 3);
+			result.render('#container');
+		};
+
+
+
+	</script>
+</body>
+
+</html>

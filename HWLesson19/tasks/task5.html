@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №5</title>
+
+	<style>
+		.container {
+			display: flex;
+		}
+
+		.container-card {
+			border: 2px solid black;
+			max-width: 150px;
+			max-height: 300px;
+			margin-right: 30px;
+			padding: 5px;
+		}
+
+		.card-action {
+			margin-bottom: 5px;
+		}
+
+		.card-img {
+			max-width: 150px;
+		}
+
+		.img-container {
+			height: 150px;
+		}
+
+		.card-title {
+			color: black;
+		}
+
+		.ard-price {
+			color: red;
+			margin-bottom: 5px;
+		}
+
+		.selected-card {
+			border: 4px solid green;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №5</h1>
+	<h4> Відображаємо картки товарів, які користувач може вибирати. Вибраний товар має зелену рамку (при кліку робити
+		toogle з класом вибраного елемента)</h4>
+
+	<div class="container">
+
+	</div>
+
+	<script>
+
+		class CreateCard {
+
+			constructor({ action, imgSrc, title, price }) {
+				this.action = action;
+				this.imgSrc = imgSrc;
+				this.title = title;
+				this.price = price;
+			}
+
+			render(containerSelector) {
+				if (containerSelector) {
+					const container = document.querySelector(containerSelector);
+					const containerCard = document.createElement('a');
+					containerCard.setAttribute('href', '#');
+					containerCard.className = 'container-card';
+					containerCard.onclick = () => {
+						containerCard.classList.toggle('selected-card');
+					}
+					//===============================================================================
+					const action = document.createElement('div');
+					action.className = 'card-action';
+					action.innerText = `${this.action}`
+					containerCard.append(action);
+					//==============================================================================
+					const containerImg = document.createElement('div');
+					containerImg.className = 'img-container';
+					containerCard.append(containerImg);
+					//===========================================================
+					const cardImg = document.createElement('img');
+					cardImg.setAttribute('src', this.imgSrc);
+					cardImg.className = 'card-img';
+					containerImg.append(cardImg);
+					//===================================================
+					const cardTitle = document.createElement('div');
+					cardTitle.className = 'card-title';
+					cardTitle.innerText = `${this.title}`;
+					containerCard.append(cardTitle);
+					//=====================================================
+					const cardPrice = document.createElement('div');
+					cardPrice.className = 'card-price';
+					cardPrice.innerText = `${this.price}`;
+					containerCard.append(cardPrice);
+
+
+					container.append(containerCard);
+
+				}
+
+			}
+
+
+		}
+
+		//==================================
+		const linksSet = [
+			{
+				action: 'Топ продаж',
+				imgSrc: './img1.jpg',
+				title: 'Title',
+				price: '19,9999',
+			},
+			{
+				action: 'Акція',
+				imgSrc: './img2.jpg',
+				title: 'Title',
+				price: '29,9999',
+			},
+			{
+				action: 'Топ продаж',
+				imgSrc: './img3.jpg',
+				title: 'Title',
+				price: '30,9999',
+			},
+			{
+				action: 'Акція',
+				imgSrc: './img4.jpg',
+				title: 'Title',
+				price: '35,9999',
+			},
+		]
+		window.onload = function () {
+			for (const linkData of linksSet) {
+
+				new CreateCard(linkData).render('.container')
+			}
+		}
+	</script>
+
+</body>
+
+</html>

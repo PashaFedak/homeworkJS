@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №2</title>
+	<style>
+		.container {
+			display: flex;
+			flex-direction: column;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №2</h1>
+	<h4>Дано 5 елементів input. При введенні значення у якийсь із них необхідно автоматично заповнювати інші усі
+		попередні у спадному порядку(кожен попередній має значення на 1 менше за наступний), усі наступні на 1 більше
+		(кожен наступне на 1 більше за попереднього)</h4>
+
+
+	<div id="container" class="container"></div>
+
+	<script>
+		class CreationInputs {
+			constructor(number) {
+				this.number = number;
+			}
+
+			getAddingNumbers(event) {
+				const inputArray = document.querySelectorAll('input');
+				const index = Array.from(inputArray).indexOf(event.target); // Отримати індекс поточного інпуту
+				const currentValue = parseInt(event.target.value); // Отримати поточне введене значення
+
+				// Оновити значення інших полів вводу
+				for (let i = 0; i < inputArray.length; i++) {
+					if (i < index) {
+						inputArray[i].value = currentValue - (index - i);
+					} else if (i > index) {
+						inputArray[i].value = currentValue + (i - index);
+					}
+				}
+			}
+
+			render(containerSelector) {
+				if (containerSelector) {
+					const container = document.querySelector(containerSelector);
+
+					for (let i = 1; i <= this.number; i++) {
+						const label = document.createElement('label');
+						label.innerText = `Value ${i}`;
+
+						this.input = document.createElement('input');
+						this.input.setAttribute('type', 'number');
+						this.input.setAttribute('value', '');
+						this.input.addEventListener('input', this.getAddingNumbers.bind(this));
+						label.append(this.input);
+
+						// Додаємо мітку до контейнера всередині циклу
+						container.append(label);
+					}
+				}
+			}
+		}
+
+		window.onload = function () {
+			const result = new CreationInputs(5);
+			result.render('#container');
+		}
+	</script>
+</body>
+
+</html>

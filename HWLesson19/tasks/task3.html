@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №3</title>
+
+	<style>
+		.container {
+			display: flex;
+
+		}
+	</style>
+</head>
+
+<body>
+
+	<h1>Задача №3</h1>
+	<h4>Дано 5 випадковим чином згенерованих нумерованих списків з рандомними числами (кількість елементів у списку
+		випадкова від 1 до 10, елементи випадкові – від 1 до 100). При натисненні на кнопку нумеровані списки з парною
+		кількістю елементів зафарбувати у зелений колір, інші у червоний.</h4>
+
+
+	<div id="container" class="container">
+	</div>
+	<button id="btn" class="btn">Start</button>
+
+	<script>
+
+		class CreateLists {
+			constructor(quantityElement, valueNumber, quantityList) {
+				this.quantityElement = quantityElement;
+				this.valueNumber = valueNumber;
+				this.quantityList = quantityList;
+			}
+
+			getRundomElement() {
+				return Math.floor(Math.random() * this.quantityElement) + 1;
+			}
+
+			getRundomNumber() {
+				return Math.floor(Math.random() * this.valueNumber) + 1;
+			}
+
+			render(containerSelector) {
+				if (containerSelector) {
+					const container = document.querySelector(containerSelector);
+
+					for (let i = 0; i < this.quantityList; i++) {
+						this.orderedList = document.createElement('ol');
+						this.orderedList.setAttribute('id', 'list_' + i);
+						for (let j = 0; j < this.getRundomElement(); j++) {
+							this.elementList = document.createElement('li');
+							this.elementList.innerText = this.getRundomNumber();
+
+							this.orderedList.append(this.elementList);
+
+						}
+
+						container.append(this.orderedList);
+					}
+				}
+			}
+
+			getColorLists() {
+
+				const lists = document.querySelectorAll('ol');
+
+				lists.forEach(list => {
+					const itemCount = list.children.length;
+					if (itemCount % 2 === 0) {
+						list.style.color = 'green'
+					} else {
+						list.style.color = 'red'
+					}
+				})
+
+
+			}
+
+		}
+		//===============================================================
+
+		window.onload = function () {
+			const result = new CreateLists(10, 100, 5);
+			result.render('#container')
+
+			document.getElementById('btn').onclick = result.getColorLists;
+		}
+
+	</script>
+</body>
+
+</html>

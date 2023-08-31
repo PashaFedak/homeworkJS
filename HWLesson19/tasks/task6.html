@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №6</title>
+
+	<style>
+		.container {
+			display: flex;
+		}
+
+		.first-table-container {
+			display: flex;
+			flex-direction: column;
+			margin-right: 200px;
+		}
+
+		.person-container {
+			display: flex;
+			flex-direction: row-reverse;
+			justify-content: space-between;
+			margin-top: 5px;
+		}
+
+		.arrow-red {
+			color: red;
+		}
+
+		.arrow-green {
+			color: green;
+
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №6</h1>
+	<h4>Дано список спортсменів. Потрібно сформувати список тих, які будуть брати участь у змаганні. При цьому є два
+		стовпці. В одному відображені всі спортсмени, в іншому – список тих, хто був вибраний. При натисканні на зелену
+		стрілку спортсмен переміщається у список для змагань. При натисканні на червону стрілку спортсмен переміщається у
+		загальний список.</h4>
+
+	<div class="container"></div>
+
+
+	<script>
+		class Athleteslist {
+
+			constructor(athletes) {
+				this.athletes = athletes;
+				this.selectedAthletes = [];
+				this.container = null;
+				this.firstTable = null;
+				this.secondTable = null;
+			}
+
+			render(containerSelector) {
+				if (containerSelector) {
+					this.container = document.querySelector(containerSelector);
+
+					this.firstTableContainer = document.createElement('div');
+					this.firstTableContainer.className = 'first-table-container';
+					this.firstTableContainer.innerText = 'Загальний список';
+					this.firstTable = document.createElement('div');
+					this.firstTable.className = 'first-table';
+					this.firstTableContainer.append(this.firstTable);
+
+					for (let i = 0; i < this.athletes.length; i++) {
+						const personContainer = this.createPersonContainer(this.athletes[i], false, i);
+						this.firstTable.appendChild(personContainer);
+					}
+
+					this.secondTableContainer = document.createElement('div');
+					this.secondTableContainer.className = 'second-table-container';
+					this.secondTableContainer.innerText = 'Обрані для змагання';
+					this.secondTable = document.createElement('div');
+					this.secondTable.className = 'second-table';
+					this.secondTableContainer.append(this.secondTable);
+
+					this.container.append(this.firstTableContainer);
+					this.container.append(this.secondTableContainer);
+
+					this.updateLists();
+				}
+			}
+
+			updateLists() {
+				this.firstTable.innerHTML = '';
+				this.secondTable.innerHTML = '';
+
+				for (let i = 0; i < this.athletes.length; i++) {
+					const personContainer = this.createPersonContainer(this.athletes[i], false, i);
+					this.firstTable.appendChild(personContainer);
+				}
+
+				for (let i = 0; i < this.selectedAthletes.length; i++) {
+					const personContainerSelected = this.createPersonContainer(this.selectedAthletes[i], true, i);
+					this.secondTable.appendChild(personContainerSelected);
+				}
+			}
+
+			createPersonContainer(name, isSelected, index) {
+				const personContainer = document.createElement('div');
+				personContainer.className = 'person-container';
+
+				const personName = document.createElement('div');
+				personName.className = 'person-name';
+				personName.innerText = name;
+
+				const arrowButton = document.createElement('div');
+				arrowButton.className = isSelected ? 'arrow-red' : 'arrow-green';
+				if (isSelected) {
+					arrowButton.innerHTML = "&#9668;"
+				} else {
+					arrowButton.innerHTML = "&#9658;"
+				}
+				arrowButton.onclick = () => this.moveAthlete(index, isSelected);
+
+				personContainer.append(arrowButton);
+				personContainer.append(personName);
+
+				return personContainer;
+			}
+
+
+
+			moveAthlete(index, isSelected) {
+				if (isSelected) {
+					const selectedAthlete = this.selectedAthletes.splice(index, 1)[0];
+					this.athletes.push(selectedAthlete);
+				} else {
+					const athlete = this.athletes.splice(index, 1)[0];
+					this.selectedAthletes.push(athlete);
+				}
+
+				this.updateLists();
+			}
+		}
+
+		const athletes = ['John Depp', 'Sara Wik', 'Den Miro', 'Alan Woo', 'Olga Sich', 'Ivan Hal'];
+
+		window.onload = function () {
+			const athletesList = new Athleteslist(athletes);
+			athletesList.render('.container');
+		}
+	</script>
+</body>
+
+</html>
