@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №2</title>
+
+	<style>
+		.container {
+			display: flex;
+			justify-content: center;
+
+		}
+
+		.land-fill {
+			display: flex;
+			width: 800px;
+			height: 400px;
+			border: 4px solid black;
+			position: relative;
+			overflow: hidden;
+
+		}
+
+		.tank-container {
+			width: 40px;
+			height: 80px;
+			position: absolute;
+
+		}
+
+		.tank-img {
+			width: 40px;
+			height: 80px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №2</h1>
+	<h4>Байрактар. З верхньої частини екрану у випадковій позиції по горизонталі з’являються танки, які їдуть вниз. При
+		кліку на танк він вибухає і зникає з екрану. </h4>
+
+	<div class="container">
+
+	</div>
+	<script>
+		// Доброго дня або вечора)) . 
+		// Я не зміг зробити так, щоб танки не появлялись один над одним. 
+		// Буду дуже вдячний якщо допоможете з цим питанням .Два дні сиджу над цією задачею) ) 
+		// Дякую.
+
+		class Tank {
+
+			constructor() {
+			}
+			renderTank() {     // створення екземпляра танка 
+				let randomNumber = new CreateTank();
+				const tank = document.createElement('div');
+				tank.className = 'tank-container';
+				tank.setAttribute('status', 'go');     //задання танку стутусу - чи він рухається чи ні
+				const tankIMG = document.createElement('img');
+				tankIMG.className = 'tank-img';
+				tankIMG.setAttribute('src', './pngTank.png');
+				tank.append(tankIMG);
+				tank.style.left = randomNumber.randomNumber(0, 95) + '%';
+				tank.style.top = -80 + 'px';
+				return tank;
+			}
+
+		}
+		class CreateTank {
+			constructor(quantity) {
+				this.quantity = quantity;
+			}
+			randomNumber(min = 1, max = 30) {
+				return min + Math.floor(Math.random() * (max - min + 1));
+			}
+			render() {
+				this.landFill = document.createElement('div');
+				this.landFill.className = 'land-fill';
+				let container = document.querySelector('.container').append(this.landFill);
+				this.count = 0;
+				this.getTank();
+				this.startRun();
+				// подія кліка на танк
+				const that = this;
+				this.landFill.addEventListener('click', function (event) {
+					if (event.target.className === 'tank-img') {
+						let imgTank = event.target;
+						imgTank.setAttribute('src', './pngBoom.png');
+						const tankContainer = imgTank.parentElement;
+						tankContainer.setAttribute('status', 'stop');  // Зупинка танка 
+						setTimeout(() => {
+							that.landFill.removeChild(imgTank.parentElement); // Видаляємо батьківський елемент (танк)
+						}, 1000);
+					}
+				});
+			}
+			// Створення декількох танків із затримкою 
+			getTank() {
+				if (this.count < this.quantity) {
+					const tank = new Tank();
+					const tankElement = tank.renderTank();
+					this.landFill.append(tankElement);
+					this.count++;
+					setTimeout(() => this.getTank(), 4000)
+				}
+			}
+			// Приводимо в рух танки
+			startRun() {
+				this.max = (document.querySelector('.land-fill').offsetHeight) - 80;
+				setInterval(() => {
+					for (const element of this.landFill.children) {
+						const valueAttribute = element.getAttribute('status')
+						if (valueAttribute === 'go') {   // перевірка статуса танка 
+							let top = parseFloat(element.style.top)
+							top += this.randomNumber(0.4, 0.9);
+							element.style.top = top + 'px';
+							if (top > this.max) {
+								element.style.left = this.randomNumber(0, 95) + '%';
+								element.style.top = -80 + 'px';
+							}
+						}
+					}
+				}, 1000 / 60);
+			}
+		}
+		window.onload = function () {
+			const resultStar = new CreateTank(4);
+			resultStar.render();
+		}
+
+
+
+	</script>
+</body>
+
+</html>

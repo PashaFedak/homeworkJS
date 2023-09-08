@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №1</title>
+
+	<style>
+		body {
+			color: azure;
+			background-color: black;
+			overflow: hidden;
+		}
+
+		.star {
+			position: absolute;
+			background-color: white;
+			border-radius: 50%;
+
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №1</h1>
+	<h4> Сяючі зорі. Вказана кількість зірочок повинна з’являтися у випадковій частині екрану. Кожна зірка (це екземпляр
+		класу Star) з певним кроком і інтервалом збільшується від мінімального до максимального розміру. Як тільки
+		досягнути максимального розміру зірочка повинна з’являтися у іншій випадковій позиції.</h4>
+
+
+	<script>
+
+		class Star {
+			constructor() {
+			}
+			render() {
+				let randomNumber = new CreateStar();
+				const star = document.createElement('div');
+				let size = randomNumber.randomNumber(1, 9);
+				star.className = 'star';
+				star.style.width = size + 'px';
+				star.style.height = size + 'px';
+				star.style.left = randomNumber.randomNumber(0, 100) + '%';
+				star.style.top = randomNumber.randomNumber(0, 100) + '%';
+				return star;
+
+			}
+		}
+
+		class CreateStar {
+
+			constructor(quantity,) {
+				this.quantity = quantity;
+				this.maxSize = 25;
+			}
+
+			randomNumber(min = 1, max = 30) {
+				return min + Math.floor(Math.random() * (max - min + 1));
+			}
+			getCreateStars() {
+				this.starContainer = document.createElement('div');
+				this.starContainer.className = 'star-container';
+				document.body.append(this.starContainer)
+				for (let index = 0; index < this.quantity; index++) {
+					const star = new Star()
+					const starElement = star.render();
+					this.starContainer.append(starElement);
+				}
+				this.starRun();
+			}
+
+			starRun() {
+				for (const element of this.starContainer.children) {
+					const step = this.randomNumber(0.1, 0.2)
+					let size = this.randomNumber(1, 9)
+					let timer = setInterval(() => {
+						size = (parseFloat(size) + step) + 'px';
+						element.style.width = size
+						element.style.height = size
+						if (parseFloat(size) >= this.maxSize) {
+							element.style.height = 0 + 'px'
+							element.style.width = 0 + 'px'
+							element.style.left = this.randomNumber(0, 100) + '%';
+							element.style.top = this.randomNumber(0, 100) + '%';
+							size = this.randomNumber(1, 9)
+							element.style.height = size
+							element.style.width = size
+						}
+					}, 60)
+				}
+			}
+
+		}
+
+		window.onload = function () {
+			const resultStar = new CreateStar(150);
+			resultStar.getCreateStars();
+		}
+
+	</script>
+
+</body>
+
+</html>

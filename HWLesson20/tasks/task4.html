@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №4</title>
+
+
+	<style>
+		.container {
+			display: flex;
+		}
+
+		.btn-container {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.input-container {
+			display: flex;
+			flex-direction: column;
+			margin-left: 100px;
+
+		}
+
+		input {
+			margin-top: 10px;
+		}
+
+		button {
+			margin-top: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №4</h1>
+
+	<h4>На сторінці міститься певна кількість кнопок і інпутів. Підраховувати загальну кількість кліків окремо на кнопках
+		і окремо на інпутах.</h4>
+
+	<div id="form_container" class="container">
+		<div class="btn-container">
+			<label for="">Кількість кліків на кнопки
+				<input type="number" value="0" id="btn-count">
+			</label>
+			<button id="btn">Кнопка №1</button>
+			<button id="btn">Кнопка №2</button>
+			<button id="btn">Кнопка №3</button>
+			<button id="btn">Кнопка №4</button>
+		</div>
+		<div class="input-container">
+			<label for=""> Кількість кліків на інпути
+				<input type="number" value="0" id="inpt-count">
+			</label>
+			<input id="inpt" type="number" value="0">
+			<input id="inpt" type="number" value="0">
+			<input id="inpt" type="number" value="0">
+			<input id="inpt" type="number" value="0">
+		</div>
+
+	</div>
+
+	<script>
+		let countInput = 0;
+		let countBtn = 0;
+		form_container.onclick = function (event) {
+			if (event.target.tagName === 'INPUT') {
+				document.getElementById('inpt-count').value = countInput++;
+			}
+			if (event.target.tagName === 'BUTTON') {
+				document.getElementById('btn-count').value = countBtn++;
+			}
+		}
+
+	</script>
+</body>
+
+</html>

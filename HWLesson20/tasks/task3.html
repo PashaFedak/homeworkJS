@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №3</title>
+
+	<style>
+		.container {
+
+			display: flex;
+			flex-direction: column;
+		}
+
+		input {
+			margin-top: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №3</h1>
+	<h4>На формі вводять 7 числових значень (вік, зріст, вага, заробітна плата, стаж, номер відділу, порядковий номер).
+		Додати подію обробки події click на форму і якщо клік на внутрішньому input, то автоматично замінювати значення
+		його на 0. Використати делегування</h4>
+
+	<div class="container" id="form_container">
+
+		<label for="">
+			вік
+			<input type="number" value="25">
+		</label>
+		<label for="">
+			Зріст
+			<input type="number" value="178">
+		</label>
+		<label for="">
+			Вага
+			<input type="number" value="78">
+		</label>
+		<label for="">
+			Заробітна плата
+			<input type="number" value="15000">
+		</label>
+		<label for="">
+			Стаж
+			<input type="number" value="4">
+		</label>
+		<label for="">
+			Номер Відділу
+			<input type="number" value="20">
+		</label>
+		<label for="">
+			Порядковий номер
+			<input type="number" value="391">
+		</label>
+
+
+
+	</div>
+	<script>
+		form_container.onclick = function (event) {
+			if (event.target.tagName === 'INPUT') {
+				event.target.value = 0;
+			}
+		}
+	</script>
+
+</body>
+
+</html>

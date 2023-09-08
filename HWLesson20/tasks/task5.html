@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №5</title>
+
+	<style>
+		.container {
+
+			display: flex;
+			flex-direction: column;
+		}
+
+		.product {
+			display: flex;
+			justify-content: space-between;
+			width: 800px;
+			height: 40px;
+			border: 3px solid black;
+			margin-bottom: 30px;
+			align-items: center;
+			padding: 20px;
+		}
+
+		.product-img {
+
+			width: 80px;
+			height: 60px;
+		}
+
+		.btn {
+
+			height: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №5</h1>
+
+	<h4>Дано перелік товарів у кошику. При зміні кількості одиниць товару збільшувати загальну
+		вартість. Створити клас Product, що призначений для маніпуляцій товаром та клас ProductManager
+		що оперує з усіма товарами через подію передвати ідентифікатор товару та операцію, що зроблена
+	</h4>
+
+
+	<div id="container" class="container">
+
+	</div>
+
+	<script>
+
+		class Product {
+
+			constructor({ title, price, picture, count }) {
+				this.title = title;
+				this.price = price;
+				this.picture = picture;
+				this.count = count;
+			}
+
+			onDelete(event) {
+				//---- створюємо власну подію
+				const priceToDelete = Number(this.spanPrice.innerText);
+				const deleteEvent = new CustomEvent('deleteProduct', {
+					detail: {
+						priceOfDeletedObject: priceToDelete,
+					},
+				})
+				//---- відправляємо подію
+				this.el.dispatchEvent(deleteEvent)
+				//----- видалення елемента
+				this.el.remove()
+			}
+			//==================================================
+			onPlus() {
+				//---- створюємо власну подію
+				const plusEvent = new CustomEvent('PlusProduct', {
+					detail: {
+						plusObject: this.count,
+						plusPrice: this.price,
+					},
+				})
+				//---- відправляємо подію
+				this.el.dispatchEvent(plusEvent)
+				this.spanCount.innerText = ++this.count;
+				this.spanPrice.innerText = Number.parseInt(this.spanPrice.innerText) + this.price
+			}
+			//==================================================
+			onMinus() {
+				//---- створюємо власну подію
+				const minusEvent = new CustomEvent('minusProduct', {
+					detail: {
+						minusObject: this.count,
+						minusPrice: this.price,
+					},
+				})
+				//---- відправляємо подію
+				if (this.count > 0) {
+					this.el.dispatchEvent(minusEvent)
+					this.spanCount.innerText = --this.count;
+					this.spanPrice.innerText = Number.parseInt(this.spanPrice.innerText) - this.price
+				}
+			}
+
+			render(containerSelector) {
+
+				const el = document.createElement('div');
+				el.className = 'product';
+
+				//=========================================
+				const productImg = document.createElement('img');
+				productImg.setAttribute('src', this.picture);
+				productImg.className = 'product-img'
+				el.append(productImg);
+				//=========================================
+				const spanTitle = document.createElement('span');
+				spanTitle.innerText = this.title;
+				el.append(spanTitle);
+				//=========================================
+				const btnMinus = document.createElement('button');
+				btnMinus.className = 'btn';
+				btnMinus.innerText = '-';
+				btnMinus.onclick = this.onMinus.bind(this)
+				el.append(btnMinus);
+				//=========================================
+				const spanCount = document.createElement('span');
+				spanCount.innerText = this.count;
+				this.spanCount = spanCount;
+				el.append(spanCount);
+				//=========================================
+				const btnPlus = document.createElement('button');
+				btnPlus.className = 'btn';
+				btnPlus.innerText = '+';
+				btnPlus.onclick = this.onPlus.bind(this)
+				el.append(btnPlus);
+				//=========================================
+				const spanText = document.createElement('span');
+				spanText.innerText = 'До оплати :';
+				spanText.className = 'span-text';
+				el.append(spanText);
+				//=========================================
+				const spanPrice = document.createElement('span');
+				spanPrice.innerText = this.price;
+				spanPrice.className = 'span-price';
+				this.spanPrice = spanPrice;
+				el.append(spanPrice);
+				//=========================================
+				const btnDelete = document.createElement('button');
+				btnDelete.className = 'btn';
+				btnDelete.innerText = 'X';
+				btnDelete.onclick = this.onDelete.bind(this)
+				this.el = el
+				el.append(btnDelete);
+				//=========================================
+
+				if (containerSelector)
+					document.querySelector(containerSelector).append(el)
+				return el
+
+			}
+		}
+		class ProductManager {
+
+			constructor(productlist) {
+				this.productList = productList;
+				this.totalPrice = 0;
+
+			}
+			onProductDelete(event) {
+				const priceToDelete = event.detail.priceOfDeletedObject;
+				this.totalPrice -= priceToDelete;
+				this.totalSum.innerText = this.totalPrice;
+			}
+			onProductPlus(event) {
+				const priceToPlus = event.detail.plusPrice;
+				this.totalPrice += priceToPlus
+				this.totalSum.innerText = this.totalPrice;
+
+			}
+			onProductMinus(event) {
+				const priceToMinus = event.detail.minusPrice;
+				this.totalPrice -= priceToMinus
+				this.totalSum.innerText = this.totalPrice;
+
+			}
+			//====================================================================
+			render(containerSelector) {
+				const el = document.createElement('div')
+				for (const element of this.productList) {
+					const productObj = new Product(element)
+					el.append(productObj.render())
+					productObj.el.addEventListener(
+						'deleteProduct',
+						this.onProductDelete.bind(this)
+					)
+					productObj.el.addEventListener(
+						'PlusProduct',
+						this.onProductPlus.bind(this)
+					)
+					productObj.el.addEventListener(
+						'minusProduct',
+						this.onProductMinus.bind(this)
+					)
+				}
+
+				const textSum = document.createElement('div')
+				textSum.className = 'text-sum';
+				textSum.innerText = 'Загалом до сплати :'
+				el.append(textSum)
+				//================================================
+				const totalSum = document.createElement('span')
+				totalSum.className = 'total-sum';
+				this.totalPrice = this.productList.reduce(
+					(prevSum, prod) => prevSum + prod.price,
+					0
+				)
+				totalSum.innerText = this.totalPrice
+				this.totalSum = totalSum
+				el.append(totalSum)
+
+				if (containerSelector)
+					document.querySelector(containerSelector).append(el)
+			}
+		}
+
+
+
+		const productList = [
+			{
+				title: 'Razer DeathAdder Essential USB Black ',
+				price: 899,
+				picture: './mouse.webp',
+				count: 1,
+			},
+			{
+				title: 'Samsung Curved C27R500 Dark Silver',
+				price: 5799,
+				picture: './monitor.webp',
+				count: 1,
+			},
+			{
+				title: 'Razer Ornata V3 X RGB USB',
+				price: 1399,
+				picture: './keyboard.webp',
+				count: 1,
+			},
+
+
+		]
+
+		window.onload = function () {
+			const resultStar = new ProductManager(productList);
+			resultStar.render('#container');
+		}
+
+	</script>
+</body>
+
+</html>
