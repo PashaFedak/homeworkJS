@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №1</title>
+
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<h1>Задача №1</h1>
+	<h4>Створити клас Client . На основі цього класу створити клас GoldenClient</h4>
+
+
+	<div id="container" class="container">
+		<label>
+			Введіть кількість грошей яку хочете зняти або добавити
+			<input id="inpt" type="number" value="0">
+		</label>
+		<button id="sum" class="btn">Додати грошей</button>
+		<button id="minus" class="btn"> Зняти гроші</button>
+
+		<div id="moneyCont" class="money-cont">
+			Ваш баланс :
+			<span id="countMoney"></span>
+		</div>
+
+		<div id="limitCont" class="limit-cont">
+			Ваш кредитний ліміт :
+			<span id="limitCredit"></span>
+		</div>
+		<div id="interestCont" class="interest-cont">
+			Пеня за використання кредитних коштів :
+			<span id="interestMoney"></span>
+		</div>
+		<span id="userInfo"></span>
+	</div>
+
+	<script>
+
+		class Client {
+			constructor(ID, Name, moneyInTheAccount) {
+				this.ID = ID;
+				this.Name = Name;
+				this.moneyInTheAccount = moneyInTheAccount;
+			}
+
+			getSumMoney() {
+				this.userNumber = Number(document.getElementById('inpt').value);
+				this.allMoney = Number(document.getElementById('countMoney').innerText);
+
+				// Додаємо числа, а не конкатенуємо рядки
+				this.allMoney += this.userNumber;
+
+				// Оновлюємо текст в DOM-елементі
+				document.getElementById('countMoney').innerText = this.allMoney;
+			}
+
+			getMinusMoney() {
+				if (document.getElementById('limitCredit').innerText > 0) {
+					this.userNumber = Number(document.getElementById('inpt').value);
+					this.allMoney = Number(document.getElementById('countMoney').innerText);
+
+					// Віднімаємо числа, а не конкатенуємо рядки
+					this.allMoney -= this.userNumber;
+					// Оновлюємо текст в DOM-елементі
+					document.getElementById('countMoney').innerText = this.allMoney;
+				}
+			}
+
+			toString() {
+				return `ID - ${this.ID} Name -${this.Name} `
+			}
+
+		}
+		class GoldenClient extends Client {
+
+			constructor(ID, Name, moneyInTheAccount, limitCredit = 5000, interestUseCredit = 2 + '%') {
+				super(ID, Name, moneyInTheAccount);
+				this.limitCredit = limitCredit;
+				this.interestUseCredit = interestUseCredit;
+			}
+
+			SumMoney() {
+				super.getSumMoney();
+			}
+
+			minusMoney() {
+				super.getMinusMoney();
+				if (this.allMoney < 0) {
+					this.getInterest();
+				}
+			}
+
+			getInterest() {
+				if (document.getElementById('limitCredit').innerText > 0) {
+					this.peniSum = Math.abs(this.allMoney) * (this.interestUseCredit / 100);
+					document.getElementById('interestMoney').innerText = this.peniSum;
+					document.getElementById('limitCredit').innerText = this.limitCredit + this.allMoney
+
+				} else {
+					alert('Кредитний ліміт закінчився ')
+				}
+			}
+
+			render() {
+				document.getElementById('countMoney').innerText = this.moneyInTheAccount
+				document.getElementById('limitCredit').innerText = this.limitCredit
+				this.btnSum = document.getElementById('sum').addEventListener('click', () => { validatePlus() });
+				this.btnSum = document.getElementById('sum').addEventListener('click', this.SumMoney.bind(this));
+
+				this.btnMinus = document.getElementById('minus').addEventListener('click', () => { validate() })
+				this.btnMinus = document.getElementById('minus').addEventListener('click', this.minusMoney.bind(this))
+
+				document.getElementById('userInfo').innerText = `${super.toString()}  ${this.toString()}`
+			}
+
+			toString() {
+				return `Відсоток за використання кредитних коштів - ${this.interestUseCredit}%`
+			}
+		}
+
+
+		// Класи помилок =-===================================================
+
+		class IsNotNumberError extends Error {
+
+			constructor() {
+				super();
+				this.message = 'Має бути числом';
+				this.name = 'IsNotNumberError';
+			}
+		}
+
+		class IsNegativeNumberError extends Error {
+			constructor() {
+				super();
+				this.message = 'Має бути додатнім числом';
+				this.name = 'IsNegativeNumberError';
+			}
+
+		}
+		class IsTooHightLimitError extends Error {
+			constructor() {
+				super();
+				this.message = 'Ви запросили більше ніж у вас є кридитних грошей';
+				this.name = 'IsTooHightLimitError';
+			}
+
+		}
+
+		//=====================================================================================
+
+		function validate() {
+			let allMoney = (Number(document.getElementById('limitCredit').innerText) + Number(document.getElementById('countMoney').innerText))
+			console.log(allMoney);
+
+			try {
+				let exp = document.getElementById('inpt').value
+				if (isNaN(exp)) throw new IsNotNumberError()
+				if (exp < 0) throw new IsNegativeNumberError()
+				if (exp > allMoney && exp > Number(document.getElementById('limitCredit').innerText)) throw new IsTooHightLimitError()
+			} catch (err) {
+				if (err instanceof IsNotNumberError) {
+					alert(`${err.message + 'Пишіть тільки числа'} `)
+					document.getElementById('inpt').value = 0;
+				} else if (err instanceof IsNegativeNumberError) {
+					alert(`${err.message + 'Пишіть тільки додатні числа'} `)
+					document.getElementById('inpt').value = 0;
+
+				} else if (err instanceof IsTooHightLimitError) {
+					alert(`${err.message + 'Ви не можете зняти більше ніж ваш кредитний ліміт'} `)
+					document.getElementById('inpt').value = 0;
+				}
+
+			}
+			return true
+		}
+
+		// Створив ще одну функцію перевірки для кнопки Додати грошей. так як попередня функція перевірка мені не підходила до цієї кнопки із за того 
+		// що перевірялось кількість введених грошей і суму всіх наявних. 
+		// Можливо є якась методико яка може розділити перевірки на декілька кнопок з використанням одної функції? щоб так не копіювати.
+		function validatePlus() {
+
+			try {
+				let exp = document.getElementById('inpt').value
+				if (isNaN(exp)) throw new IsNotNumberError()
+				if (exp < 0) throw new IsNegativeNumberError()
+
+			} catch (err) {
+				if (err instanceof IsNotNumberError) {
+					alert(`${err.message + 'Пишіть тільки числа'} `)
+					document.getElementById('inpt').value = 0;
+				} else if (err instanceof IsNegativeNumberError) {
+					alert(`${err.message + 'Пишіть тільки додатні числа'} `)
+					document.getElementById('inpt').value = 0;
+				}
+			}
+			return true
+		}
+
+
+		window.onload = function () {
+			const resultStar = new GoldenClient(90300, 'Pasha', 10000, 5000, 2);
+			resultStar.render();
+		}
+
+	</script>
+
+</body>
+
+</html>

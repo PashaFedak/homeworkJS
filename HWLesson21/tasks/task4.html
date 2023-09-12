@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №4</title>
+
+	<style>
+		.container {
+			display: flex;
+		}
+
+		.month-cnt {
+			display: flex;
+			margin-right: 50px;
+			flex-direction: column;
+		}
+
+		.evaluation-cnt {
+			display: flex;
+
+			flex-direction: column;
+		}
+
+		.btn-cnt {
+			margin-left: 50px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №4</h1>
+
+	<h4>Задача 4. Користувач задає місяць навчання учня (перевіряти чи є числом, чи від 1 до 12, чи не канікули) та
+		оцінку (перевіряти чи є числом, чи від 1 до 100). Вивести чи зможе він виправити оцінку (якщо оцінка погана і це
+		не останній місяць у семестрі) . Обробку усіх помилок зробити з використанням відповідних класів.</h4>
+
+	<div class="container">
+
+		<div id="monthCnt" class="month-cnt">
+			<label>
+				Введіть номер місяця навчання учня:
+				<input id="monthInput" type="number" value="0">
+			</label>
+		</div>
+
+		<div id="evaluation-cnt" class="evaluation-cnt">
+			<label>
+				Введіть оцінку учня:
+				<input id="evaluationInput" type="number" value="0">
+			</label>
+		</div>
+
+		<div class="btn-cnt">
+			<button id="btn">Перевірити</button>
+		</div>
+
+	</div>
+
+	<script>
+
+
+		class Teacher {
+
+			constructor() {
+
+			}
+
+			render() {
+				this.btn = document.getElementById('btn').addEventListener('click', this.getCorrectAssessment.bind(this))
+				this.btn = document.getElementById('btn').addEventListener('click', () => { validate() })
+				this.CorrectAssessment = document.createElement('span');
+			}
+
+
+			getCorrectAssessment() {
+
+				const monthValue = parseInt(document.getElementById('monthInput').value);
+				const evaluationInput = parseInt(document.getElementById('evaluationInput').value);
+				this.CorrectAssessment.innerText = ''
+				if (evaluationInput < 40) {
+					if (monthValue !== 1 && monthValue !== 6) {
+
+						this.CorrectAssessment.innerText = 'Учень має можливість перездати оцінку!'
+
+					} else {
+						this.CorrectAssessment.innerText = 'Учень НЕ має можливість перездати оцінку!'
+					}
+				}
+
+
+
+				document.querySelector('.container').append(this.CorrectAssessment);
+			}
+
+
+		}
+		//==============================================================
+		// Класи помилок =-===================================================
+
+		class IsNotNumberError extends Error {
+
+			constructor() {
+				super();
+				this.message = 'Має бути числом';
+				this.name = 'IsNotNumberError';
+			}
+		}
+
+		class IsWrongNumberError extends Error {
+			constructor() {
+				super();
+				this.message = 'Неправильне число  ';
+				this.name = 'IsWrongNumberError';
+			}
+
+		}
+		class IsVacationError extends Error {
+			constructor() {
+				super();
+				this.message = 'Це канікули!';
+				this.name = 'IsVacationError';
+			}
+
+		}
+
+		//==============================================================================
+
+		class IsWrongNumber100Error extends Error {
+			constructor() {
+				super();
+				this.message = 'Число повинно бути від 1 до 100';
+				this.name = 'IsWrongNumber100Error';
+			}
+
+		}
+
+
+		function validate() {
+
+			try {
+				let month = document.getElementById('monthInput').value
+				let evaluation = document.getElementById('evaluationInput').value
+
+
+				if (isNaN(month)) throw new IsNotNumberError()
+				if (isNaN(evaluation)) throw new IsNotNumberError()
+
+				if (month < 1 || month > 12) throw new IsWrongNumberError()
+				if ((month === 12 || month === 1) || (month >= 6 && month <= 8)) throw new IsVacationError()
+
+				if (evaluation < 1 || evaluation > 100) throw new IsWrongNumber100Error()
+
+			} catch (err) {
+				if (err instanceof IsNotNumberError) {
+					alert(`${err.message + 'Пишіть тільки числа'} `)
+					document.getElementById(err.inputId).value = 0;
+				} else if (err instanceof IsWrongNumberError) {
+					const err1 = document.createElement('div')
+					err1.innerText = `${err.message + 'Число повинно бути від 1 до 12'}`
+					document.getElementById('monthCnt').append(err1)
+					document.getElementById('monthInput').value = 0;
+				} else if (err instanceof IsVacationError) {
+					const err1 = document.createElement('div')
+					err1.innerText = `${err.message + 'Це канікули!'}`
+					document.getElementById('monthCnt').append(err1)
+					document.getElementById('monthInput').value = 0;
+				} else if (err instanceof IsWrongNumber100Error) {
+					const err1 = document.createElement('div')
+					err1.innerText = `${err.message + '  Не правильне число'}`
+					document.getElementById('evaluation-cnt').append(err1)
+					document.getElementById('evaluationInput').value = 0;
+				}
+			}
+			return true
+		}
+
+		window.onload = function () {
+			const result = new Teacher();
+			result.render();
+
+		}
+
+	</script>
+
+</body>
+
+</html>

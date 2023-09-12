@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №2</title>
+
+	<style>
+		.container {
+			display: flex;
+			flex-direction: column-reverse;
+		}
+
+		.clients-list {
+			display: flex;
+			margin-bottom: 20px;
+		}
+
+		.clients-container {
+			display: flex;
+			flex-direction: column;
+			margin-right: 50px;
+		}
+
+		.golden-clients-container {
+			display: flex;
+			flex-direction: column;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №2</h1>
+
+	<h4> Створити клас Bank, у якому зберігається масив клієнтів. Виконати такі операції
+		<ul>
+			<li>Вивести усіх простих клієнтів;</li>
+			<li>Вивести усіх клієнтів GoldenClient;</li>
+			<li>Знати сумарну кількість грошей на рахунку;</li>
+		</ul>
+	</h4>
+
+
+	<div id="container" class="container"></div>
+
+	<script>
+
+
+		class Bank {
+
+			constructor() {
+				this.clientList = [
+					{
+						id: 77777,
+						name: 'Pasha',
+						moneyClient: 10000,
+					},
+					{
+						id: 77776,
+						name: 'Sasha',
+						moneyClient: 12000,
+					},
+					{
+						id: 77775,
+						name: 'Masha',
+						moneyClient: 15000,
+					},
+					{
+						id: 77774,
+						name: 'Dasha',
+						moneyClient: 25000,
+					},
+					{
+						id: 77773,
+						name: 'Ivan',
+						moneyClient: 27000,
+					},
+					{
+						id: 77772,
+						name: 'Dima',
+						moneyClient: 30000,
+					},
+
+				]
+			}
+
+
+		}
+
+
+		class GoldenClient extends Bank {
+
+			constructor() {
+				super();
+			}
+
+			render(containerSelector) {
+				const el = document.createElement('div')
+				el.className = 'clients-list'
+
+				const clientsContainer = document.createElement('div');
+				clientsContainer.className = 'clients-container'
+				clientsContainer.innerText = 'прості клієнти'
+				el.append(clientsContainer)
+
+				const goldenClientsContainer = document.createElement('div');
+				goldenClientsContainer.className = 'golden-clients-container'
+				goldenClientsContainer.innerText = 'клієнти Golden'
+				el.append(goldenClientsContainer)
+
+				const allMoneyClient = document.createElement('div')
+				document.querySelector('.container').append(allMoneyClient)
+				let allMoney = 0;
+
+				for (const element of this.clientList) {
+					if (element.moneyClient < 20000) {
+
+						const clients = document.createElement('span');
+						clients.className = 'simple-client'
+						clients.innerText = `ID: ${element.id}, Name: ${element.name}, Money: ${element.moneyClient}`;
+						clientsContainer.append(clients);
+					}
+					if (element.moneyClient > 20000) {
+
+						const goldenClients = document.createElement('span');
+						goldenClients.className = 'golden-client';
+						goldenClients.innerText = `ID: ${element.id}, Name: ${element.name}, Money: ${element.moneyClient}`;
+						goldenClientsContainer.append(goldenClients)
+					}
+
+					allMoney += element.moneyClient
+				}
+				allMoneyClient.innerText = `Загальна сума всіх грошей ${allMoney} грн`
+				if (containerSelector) {
+					document.querySelector(containerSelector).append(el)
+
+				}
+			}
+
+		}
+
+
+		window.onload = function () {
+			const resultStar = new GoldenClient();
+			resultStar.render('#container');
+		}
+
+
+	</script>
+</body>
+
+</html>
