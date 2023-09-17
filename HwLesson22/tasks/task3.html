@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №3</title>
+</head>
+
+<body>
+	<h1>Задача №3</h1>
+	<h4>Визначити поточну пору року</h4>
+
+	<script>
+		let date = new Date();
+
+		const months = ['Зима', 'Зима', 'Весна', 'Весна', 'Весна', 'Літо', 'Літо', 'Літо', 'Осінь', 'Осінь', 'Осінь', 'Зима'];
+		const month = months[date.getMonth()];
+
+
+		document.write(`Поточна пора року - ${month}`)
+
+	</script>
+</body>
+
+</html>

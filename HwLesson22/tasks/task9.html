@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №9</title>
+</head>
+
+<body>
+	<h1>Задача №9</h1>
+	<h4>Дано дата виробництва йогурта (вводимо рік, місяць, день) та кількість днів придатності. Визначити чи є він
+		придатним на даний момент.</h4>
+
+
+	<div class="container">
+
+		<label>
+			введіть дату виробництва йогурта -
+			<input id="yogurt" type="date">
+		</label>
+		<label>
+			введіть кількість днів придатності -
+			<input id="yogurtDays" type="number" value="0">
+		</label>
+		<button id="btnResult">Визначити </button>
+		<span id="result"></span>
+
+	</div>
+
+	<script>
+
+
+
+		let yogurtDate = document.getElementById('yogurt');
+
+		let yogurtDaysResult = document.getElementById('yogurtDays');
+		let btn = document.getElementById('btnResult');
+		let text = document.getElementById('result')
+		let date = new Date();
+
+
+
+		btn.onclick = function () {
+			let yogurtDaysValue = parseInt(yogurtDaysResult.value)
+			console.log(yogurtDaysValue);
+			let expiryDate = new Date(yogurtDate.value)
+			console.log(expiryDate);
+
+			let resultTime = date - expiryDate
+			console.log(resultTime);
+
+			let resultDays = Math.floor(resultTime / (24 * 60 * 60 * 1000))
+			console.log(resultDays);
+
+			if (yogurtDaysResult.value > resultDays) {
+				text.innerText = 'Йогурт не придатний'
+			} else {
+				text.innerText = 'Йогурт ще придатний'
+			}
+
+
+		}
+
+	</script>
+</body>
+
+</html>

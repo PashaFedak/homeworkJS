@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №6</title>
+</head>
+
+<body>
+	<h1>Задача №6</h1>
+	<h4>Користувач іде у відпустку на 56 днів. Визначити дату на момент його повернення.</h4>
+
+
+	<script>
+
+		let date = new Date();
+
+		date.setDate(date.getDate() + 56)
+
+		date.getDate();
+		const options = {
+			weekday: 'long',
+			month: 'long',
+			day: 'numeric'
+		}
+
+		let day = date.toLocaleString('uk-UA', options)
+
+		document.write(`Користувач повернеться з відпустки - ${day}`)
+
+	</script>
+</body>
+
+</html>

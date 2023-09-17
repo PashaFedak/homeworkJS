@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №7</title>
+</head>
+
+<body>
+	<h1>Задача №7</h1>
+
+	<h4>Користувач бере авто на вказану кількість годин. Визначити кінцевий час повернення.</h4>
+
+	<div class="container">
+
+		<label>
+			На скільки годин берете авто ?
+			<input id="userHours" type="number" value="0">
+		</label>
+
+		<span id="result"></span>
+
+	</div>
+
+	<script>
+
+		let userVelue = document.getElementById('userHours');
+
+		let resultUser = document.getElementById('result')
+
+
+
+		userVelue.onchange = function () {
+			let date = new Date();
+			date.getHours();
+			console.log(date.getHours());
+			let hours = parseInt(userVelue.value)
+			date.setHours(date.getHours() + hours)
+			console.log(hours);
+
+			let resultHours = date.toLocaleString();
+
+			resultUser.innerText = `Ви повернете авто  ${resultHours} годині `
+		}
+
+	</script>
+</body>
+
+</html>

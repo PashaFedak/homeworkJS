@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №1</title>
+</head>
+
+<body>
+	<h1>Задача №1</h1>
+	<h4>Визначити привітання у залежності від часу доби (Доброго дня, Доброго ранку, Доброго вечора)</h4>
+
+	<script>
+
+		let date = new Date();
+		// date.setHours(18)
+		if (date.getHours() >= 1 && date.getHours() <= 10) {
+			document.write('Доброго ранку')
+		} else if (date.getHours() >= 11 && date.getHours() <= 17) {
+			document.write('Доброго дня')
+		} else if (date.getHours() >= 18 || date.getHours() === 0) {
+			document.write('Доброго вечора')
+		}
+
+	</script>
+</body>
+
+</html>

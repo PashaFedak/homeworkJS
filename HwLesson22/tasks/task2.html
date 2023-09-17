@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №2</title>
+</head>
+
+<body>
+	<h1>Задача №2</h1>
+	<h4>. Вивести дату у форматі
+		“місяць – рік – вихідний/робочий”
+	</h4>
+
+
+	<script>
+
+		let date = new Date();
+		let day;
+		if (date.getDay() === 0 || date.getDay() === 6) {
+			day = 'Вихідний'
+		} else {
+			day = 'Робочий'
+		}
+		let month = date.getMonth();
+		let year = date.getFullYear();
+
+		document.write(`${month + 1} місяць - ${year} рік - ${day}`)
+
+	</script>
+
+
+</body>
+
+</html>

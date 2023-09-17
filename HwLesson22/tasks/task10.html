@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №10</title>
+</head>
+
+<body>
+	<h1>Задача №10</h1>
+	<h4>Сформувати масив з 1000 елементів від 1 до 800. Порівняти час сортування бульбашкою і вставкою.</h4>
+
+
+	<script>
+		function getRandomNumber(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+
+		const arrayToSort = [];
+		for (let i = 0; i < 1000; i++) {
+			arrayToSort.push(getRandomNumber(1, 800));
+		}
+
+
+		function bubbleSort(arr) {
+			const n = arr.length;
+			let swapped;
+			do {
+				swapped = false;
+				for (let i = 0; i < n - 1; i++) {
+					if (arr[i] > arr[i + 1]) {
+						const temp = arr[i];
+						arr[i] = arr[i + 1];
+						arr[i + 1] = temp;
+						swapped = true;
+					}
+				}
+			} while (swapped);
+		}
+
+		function insertionSort(arr) {
+			const n = arr.length;
+			for (let i = 1; i < n; i++) {
+				const currentElement = arr[i];
+				let j = i - 1;
+				while (j >= 0 && arr[j] > currentElement) {
+					arr[j + 1] = arr[j];
+					j--;
+				}
+				arr[j + 1] = currentElement;
+			}
+		}
+
+		let start1 = new Date();
+		bubbleSort(arrayToSort.slice()); // Використовуємо копію масиву для сортування
+		let stop1 = new Date()
+		let resultTime1 = (stop1 - start1) / 1000;
+
+		document.write(`Метод бульбашкою виконався за ${resultTime1} сек. <br> `);
+
+		// Зафіксовуємо час сортування вставкою
+		let start2 = new Date();
+
+		insertionSort(arrayToSort.slice()); // Використовуємо копію масиву для сортування
+		let stop2 = new Date()
+		let resultTime2 = (stop2 - start2) / 1000;
+
+		document.write(`Метод Вставкою виконався за ${resultTime2} сек.`);
+
+	</script>
+</body>
+
+</html>

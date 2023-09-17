@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №5</title>
+</head>
+
+<body>
+	<h1>Задача №5</h1>
+	<h4>Користувач вводить дату народження. Визначити, скільки йому повних років.</h4>
+
+	<div class="container">
+
+		<label>
+			Введіть Вашу дату народження -
+			<input id="inptBirthday" type="date">
+		</label>
+		<span id="userBirthday"></span>
+	</div>
+
+	<script>
+		let userDate = document.getElementById('inptBirthday');
+		let userResult = document.getElementById('userBirthday');
+
+
+		userDate.onchange = function () {
+			const birthDate = new Date(userDate.value)
+
+			// Отримуємо поточну дату
+			const currentDate = new Date();
+
+			const timeDifference = currentDate - birthDate;
+
+			// Конвертуємо мілісекунди у роки, з врахуванням високосних років
+			const millisecondsPerYear = 1000 * 60 * 60 * 24 * 365.25; // Приблизна кількість мілісекунд у році
+			const age = Math.floor(timeDifference / millisecondsPerYear);
+
+			userResult.innerText = age
+		}
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №8</title>
+</head>
+
+<body>
+	<h1>Задача №8</h1>
+	<h4>Задаємо користувачу задачу з додавання двох чисел. Визначити скільки секунд було використано для розв’язання
+		задачі.</h4>
+
+
+	<script>
+		let start = new Date();
+		let randomNumber1 = Math.floor(Math.random() * 20) + 1;
+		let randomNumber2 = Math.floor(Math.random() * 25) + 1;
+
+		prompt(`вкажіть який буде результат виразу ${randomNumber1} + ${randomNumber2}`,)
+
+		let stop = new Date();
+		let resultTime = parseInt((stop - start) / 1000)
+
+		alert(`Викорестано часу на розвязок ${resultTime} сек`)
+	</script>
+
+</body>
+
+</html>
