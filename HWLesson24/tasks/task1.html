@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<div class="container">
+		<div class="task">
+			<h4>Задача 1.Дано список з віком учнів. Підрахувати скільки разів кожне значення зустрічається у списку і
+				максимальне.
+			</h4>
+			<span id="task1"></span>
+		</div>
+		<div class="task">
+			<h4>Задача 2. Дано масив книг (назва, рік видання, автор). Підрахувати кількість книг для кожного автора.</h4>
+			<span id="task2"></span>
+		</div>
+		<div class="task">
+			<h4>Задача 3.Дано інформацію про відвідувачів деякого сайту (для кожного відвідувача зберігається логін).
+				Підрахувати
+				для кожного клієнта кількість відвідувань.</h4>
+			<span id="task3"></span>
+		</div>
+		<div class="task">
+			<h4>Задача 4. Дано масив студентів (піб, курс, факультет). Підрахувати кількість різних факультетів, та
+				кількість
+				студентів кожного з курсів. </h4>
+			<span id="task4"></span>
+		</div>
+		<div class="task">
+			<h4>Задача 5. Дано масив показів температур. Підрахувати кількість входжень кожного із показів
+				let temperatures = [12.4, 24.9, 10.6, 12.4, 24.9, 12.4, 10.6, 11.9]
+				Заокруглити вверх значення та підрахувати кількість різних показів.
+
+			</h4>
+			<span id="task5"></span>
+		</div>
+		<div class="task">
+			<h4>Задача 6. Дано два списки прізвищ студентів, що відвідують гуртки з математики і історії. Підрахувати
+				скільки студентів з гуртка з історії також відвідують гурток з математики. Також підрахувати скільки всього
+				студентів відвідують хоча б один гурток.</h4>
+			<span id="task6"></span>
+		</div>
+		<div class="task">
+			<h4>Задача 7. Користувач може змінювати колір фону, що вибирає користувач з використанням
+				input type="color"
+				Зберігати цей колір і відновлювати при наступному відкритті. Також зберігати і відображати кількість змін
+				протягом одного сеансу.
+			</h4>
+			<span id="task7"> </span>
+			<input id="inpt7" type="color">
+		</div>
+		<div class="task">
+			<h4>Задача 8. Зберігати у пам’яті список справ, які користувачу треба виконати (зберігати у localStorage).
+				Періодично випадковим чином вибирати якусь з справ і виводити користувачу (з використанням confirm). Якщо
+				користувач натискає на «Ок», то видаляти цю задачу.</h4>
+			<button id="btn8">Почати виконувати завдання </button>
+			<span id="task8"></span>
+		</div>
+	</div>
+
+
+	<script>
+		//Задача 1.Дано список з віком учнів. Підрахувати скільки разів кожне значення зустрічається у списку і
+		//максимальне.
+		let exp1 = document.getElementById('task1')
+		let ages = [13, 13, 15, 16, 17, 12, 12, 15]
+		let mapAges = new Map()
+		let max = -Infinity;
+		for (const age of ages) {
+			mapAges.set(age, (mapAges.get(age) ?? 0) + 1)
+			if (age > max) {
+				max = age;
+			}
+		}
+		mapAges.forEach((val, key) => {
+			exp1.innerText += (`роки ${key} кількість -  ${val} \n `)
+
+		})
+		exp1.innerText += `максимальне - ${max}`;
+		//==================================================================================================
+		//Задача 2. Дано масив книг (назва, рік видання, автор). Підрахувати кількість книг для кожного автора.
+
+		let books = [
+			{ id: 1, title: 'Title1', author: 'Ivan' },
+			{ id: 2, title: 'Title2', author: 'Pavlo' },
+			{ id: 3, title: 'Title3', author: 'Pavlo' },
+			{ id: 4, title: 'Title4', author: 'Sasha' },
+			{ id: 5, title: 'Title5', author: 'Ivan' },
+			{ id: 6, title: 'Title6', author: 'Ivan' },
+		]
+
+		let mapBooks = new Map();
+
+		for (const book of books) {
+			mapBooks.set(book.author, (mapBooks.get(book.author) ?? 0) + 1)
+		}
+		mapBooks.forEach((val, key) => {
+			document.getElementById('task2').innerText += `Автор ${key} має - ${val} книг \n`
+		})
+		//==================================================================================================
+
+		// Задача №3 Дано інформацію про відвідувачів деякого сайту (для кожного відвідувача зберігається логін). Підрахувати для кожного клієнта кількість відвідувань.
+
+		const logins = ['user1', 'user2', 'user1', 'user1', 'user3', 'user2', 'user3', 'user4', 'user4'];
+
+		let mapVisitors = new Map();
+
+		for (const user of logins) {
+			mapVisitors.set(user, (mapVisitors.get(user) ?? 0) + 1)
+		}
+		mapVisitors.forEach((count, login) => {
+			document.getElementById('task3').innerText += `${login}: ${count} відвідувань \n`;
+		});
+		//==================================================================================================
+		//Задача 4. Дано масив студентів (піб, курс, факультет). Підрахувати кількість різних факультетів, та кількість студентів кожного з курсів.
+
+		let students = [
+			{ Name: 'Ivan Ivanov', course: 2, faculty: 'IM' },
+			{ Name: 'Petro Petrov', course: 4, faculty: 'GM' },
+			{ Name: 'Pavlo Fedak', course: 1, faculty: 'Fn' },
+			{ Name: 'Elon Musk', course: 4, faculty: 'IHF' },
+			{ Name: 'Jeff Bezos', course: 3, faculty: 'KG' },
+			{ Name: 'Warren Buffett', course: 2, faculty: 'KG' },
+
+		]
+		let setFaculty = new Set(students.map((student) => student.faculty)).size
+
+		document.getElementById('task4').innerText += `Кількість різних факультетів - ${setFaculty} \n`;
+
+		let mapStudents = new Map();
+
+		for (const student of students) {
+			mapStudents.set(student.course, (mapStudents.get(student.course) ?? 0) + 1)
+		}
+
+		mapStudents.forEach((count, course) => {
+			document.getElementById('task4').innerText += `на ${course} курсі кількість студентів ${count} \n `
+		})
+		//==================================================================================================
+		// Задача 5. Дано масив показів температур. Підрахувати кількість входжень кожного із показів
+		// 		let temperatures = [12.4, 24.9, 10.6, 12.4, 24.9, 12.4, 10.6, 11.9]
+		// 		Заокруглити вверх значення та підрахувати кількість різних показів.
+
+		let temperatures = [12.4, 24.9, 10.6, 12.4, 24.9, 12.4, 10.6, 11.9]
+
+		let mapTemperatures = new Map();
+		for (const temp of temperatures) {
+			mapTemperatures.set(temp, (mapTemperatures.get(temp) ?? 0) + 1)
+		}
+		mapTemperatures.forEach((count, temp) => {
+			document.getElementById('task5').innerText += `Температури ${temp} було ${count} входжень \n `
+
+		})
+
+		let setTemperatures = new Set(temperatures.map((temperatures) => Math.ceil(temperatures))).size
+
+		document.getElementById('task5').innerText += `Кількість різних показників - ${setTemperatures} `
+		//==================================================================================================
+		// Задача 6. Дано два списки прізвищ студентів, що відвідують гуртки з математики і історії.Підрахувати скільки студентів з гуртка з
+		//  історії також відвідують гурток з математики.Також підрахувати скільки всього студентів відвідують хоча б один гурток.
+
+		let studentListMath = ['Ivanov', 'Petrov', 'Fedak', 'Musk', 'Bezos', 'Buffett',]
+		let studentListHistory = ['Ivanov', 'Petrov', 'Petrenko', 'Musk', 'Shevchenko', 'Buffett',]
+		const mathSet = new Set(studentListMath);
+		const historySet = new Set(studentListHistory);
+
+		const studentsInBothClubs = new Set([...mathSet].filter(student => historySet.has(student)));
+		document.getElementById('task6').innerText += `Кількість студентів які відвідують обидва гуртка ${studentsInBothClubs.size} \n`
+
+		const allStudents = new Set([...mathSet, ...historySet]);
+		document.getElementById('task6').innerText += `Загальна  кількість студентів які відвідують гуртки -  ${allStudents.size} `
+
+		//==================================================================================================
+
+		// Задача 7. Користувач може змінювати колір фону, що вибирає користувач з використанням input type="color" Зберігати цей колір
+		// і відновлювати при наступному відкритті. Також зберігати і відображати кількість змін протягом одного сеансу.
+		const savedColor = localStorage.getItem("backgroundColor");
+		if (savedColor) {
+			document.body.style.backgroundColor = savedColor;
+		}
+		const colorInput = document.getElementById("inpt7")
+		colorInput.addEventListener('change', function () {
+			const selectedColor = colorInput.value;
+			document.body.style.backgroundColor = selectedColor;
+			localStorage.setItem("backgroundColor", selectedColor);
+
+			changeCount++;
+			changeCountDisplay.innerText = `Кількість змін: ${changeCount} \n`;
+			sessionStorage.setItem("changeCount", changeCount);
+		})
+
+
+		let changeCount = sessionStorage.getItem("changeCount");
+		if (!changeCount) {
+			changeCount = 0;
+		}
+		const changeCountDisplay = document.getElementById("task7");
+		changeCountDisplay.innerText = `Кількість змін: ${changeCount}\n`;
+		//==================================================================================================
+		// Зберігати у пам’яті список справ, які користувачу треба виконати (зберігати у localStorage). Періодично випадковим чином вибирати
+		// якусь з справ і виводити користувачу (з використанням confirm). Якщо користувач натискає на «Ок», то видаляти цю задачу.
+		let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+		let tasksList = ['Помий посуд', 'Задонать на ЗСУ', 'Роби ДЗ', 'Випий кави',]
+
+		function initializeTasks() {
+			tasks = tasksList;
+			saveTasks();
+		}
+		function saveTasks() {
+			localStorage.setItem("tasks", JSON.stringify(tasks));
+		}
+
+		function deleteTask(index) {
+			tasks.splice(index, 1);
+			saveTasks();
+		}
+		function showRandomTask() {
+			if (tasks.length === 0) {
+				alert("Немає справ у списку.");
+				return;
+			}
+
+			const randomIndex = Math.floor(Math.random() * tasks.length);
+			const randomTask = tasks[randomIndex];
+
+			const confirmation = confirm(`Завдання: ${randomTask}\nВи впораєтесь з цим завданням?`);
+			if (confirmation) {
+				deleteTask(randomIndex);
+				alert("Завдання видалено.");
+			} else {
+				alert("Завдання не видалено.");
+			}
+		}
+
+		const executeTaskButton = document.getElementById("btn8");
+
+		executeTaskButton.addEventListener("click", function () {
+			initializeTasks()
+			showRandomTask();
+
+		});
+	</script>
+
+</body>
+
+</html>
