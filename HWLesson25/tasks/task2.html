@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №2</title>
+</head>
+
+<body>
+	<h1>Задача №2</h1>
+	<h4>Дано Shop -- клас, що містить список товарів масив об’єктів класу Product (назва, ціна, кількість одиниць).
+		Додати можливість ітератора до класу Shop, щоб при ітеруванні для кожного елемента виводився рядок «товар-загальна
+		вартість»</h4>
+
+
+	<div id="text" class="container"></div>
+
+	<script>
+		class Product {
+			constructor({ title, price, count }) {
+				this.title = title;
+				this.price = price;
+				this.count = count;
+			}
+		}
+		const productList = [
+
+			new Product({
+				title: 'Кастрюля',
+				price: '400',
+				count: '3',
+			}),
+
+			new Product({
+				title: 'Стіл',
+				price: '8200',
+				count: '5',
+			}),
+
+			new Product({
+				title: 'Стілець',
+				price: '1200',
+				count: '6',
+			}),
+			new Product({
+				title: 'Мишка',
+				price: '500',
+				count: '7',
+			}),
+			new Product({
+				title: 'Колонки',
+				price: '4050',
+				count: '4',
+			}),
+		]
+
+
+
+		class Shop {
+			constructor(productList) {
+				this.productList = productList;
+			}
+
+			*[Symbol.iterator]() {
+				for (const product of this.productList) {
+					const totalValue = product.price * product.count;
+					yield `${product.title} - Загальна вартість: ${totalValue}`
+				}
+			}
+		}
+
+		const shop = new Shop(productList);
+		let text = document.getElementById('text')
+		for (const item of shop) {
+
+			text.innerText += `${item} \n`
+		}
+	</script>
+</body>
+
+</html>

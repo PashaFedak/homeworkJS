@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №4</title>
+
+	<style>
+		.pics {
+			max-width: 200px;
+			max-height: 300px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №1</h1>
+
+	<h4>Використовуючи один з АРІ
+		https://github.com/public-apis/public-apis#animals
+		та функцію fetch організувати завантаження та відображення даних
+	</h4>
+
+	<div class="container">
+		<div id="pics" class="pics"></div>
+	</div>
+	<script>
+
+		let pics = document.getElementById('pics')
+		fetch('https://random.dog/woof.json')
+			.then((response) => response.json())
+			.then((data) => {
+				pics.innerHTML = `<img class="pics" src="${data.url}">`
+			})
+
+	</script>
+</body>
+
+</html>

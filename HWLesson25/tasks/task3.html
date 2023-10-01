@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Задача №3</title>
+</head>
+
+<body>
+	<h1>Задача №3</h1>
+	<h4>Створити генератор, який би випадковим чином поступово генерував вказану кількість парних чисел.</h4>
+
+	<div class="container">
+		<label>
+			Введіть кількість парних чисел
+			<input id="userNumber" type="number" value="0">
+		</label>
+		<div id="text"></div>
+	</div>
+
+	<script>
+
+
+		let count = document.getElementById('userNumber');
+		let text = document.getElementById('text');
+		function* generateRandomEvenNumbers(count) {
+			let generatedCount = 0;
+
+			while (generatedCount < count.value) {
+				const randomNumber = Math.floor(Math.random() * 100)
+
+				if (randomNumber % 2 === 0) {
+					yield randomNumber;
+					generatedCount++;
+				}
+
+
+			}
+
+		}
+		function start() {
+			text.innerText = '';
+			const generator = generateRandomEvenNumbers(count);
+
+			for (const number of generator) {
+
+				text.innerText += `${number} \n`;
+			}
+		}
+		window.onload = function () {
+			count.addEventListener('change', start)
+		}
+
+
+
+	</script>
+</body>
+
+</html>
